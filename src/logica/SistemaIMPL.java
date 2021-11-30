@@ -18,7 +18,7 @@ public class SistemaIMPL implements Sistema {
 	}
 
 	@Override
-	public boolean ingresarAsignaturaObligatoria(String código, String nombre, int créditos, int tipo, int nivel,
+	public boolean ingresarAsignaturaObligatoria(String código, String nombre, int créditos, String tipo, int nivel,
 			int asignaturasPreRequisito) {
 		// TODO Auto-generated method stub
 		return false;
@@ -31,7 +31,7 @@ public class SistemaIMPL implements Sistema {
 	}
 
 	@Override
-	public boolean ingresarAsignaturaOpcional(String código, String nombre, int créditos, int tipo,
+	public boolean ingresarAsignaturaOpcional(String código, String nombre, int créditos, String tipo,
 			int credPreRequisito) {
 		// TODO Auto-generated method stub
 		return false;
@@ -117,6 +117,12 @@ public class SistemaIMPL implements Sistema {
 
 	@Override
 	public void escribirEstudiantesEgresados() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void asociarAsignaturaAsignaturaPre(String codigoAsignatura, String codigoAsignaturaPre) {
 		// TODO Auto-generated method stub
 		
 	}

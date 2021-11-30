@@ -1,4 +1,6 @@
-package dominio;
+package logica;
+
+import dominio.Asignatura;
 
 public class AsignaturaOpcional extends Asignatura{
 
