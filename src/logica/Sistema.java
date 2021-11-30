@@ -20,4 +20,5 @@ public interface Sistema {
 	void CierreSemestre();
 	void escribirEstudiantesEgresados();
 	void asociarAsignaturaAsignaturaPre(String codigoAsignatura,String codigoAsignaturaPre);
+	void asociarEstudianteAsignaturaInscrita(String rutEstudiante,String codigoAsignatura,String paralelo);
 }

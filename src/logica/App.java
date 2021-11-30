@@ -50,9 +50,33 @@ public class App {
 					s.asociarEstudianteAsignatura(rut, codigoAsignaturasCursadas,notaFinal);
 				}
 				catch(Exception e) {
-					System.out.println("no se pudo asociaral alumno con la asignatura cursada");
+					System.out.println("no se pudo asociar al alumno con la asignatura cursada");
 				}
 			}
+			//otro salto de linea
+			String line4 = scan.nextLine();
+			int auxLine4 = Integer.parseInt(line4);
+			if(line4.equalsIgnoreCase("0")) 
+			{
+				//estamos a principio de semestre
+				System.out.println("el estudiante aun no ha inscrito ninguna asignatura");
+			}else {
+				for(int j = 0;j<auxLine4;j++) {
+					String line5 = scan.nextLine();
+					String []partes3 = line5.split(",");
+					String codigoAsignaturaInscrita = partes3[0];
+					String numeroParalelo = partes3[1];
+					
+					try {
+						
+						s.asociarEstudianteAsignaturaInscrita(rut, codigoAsignaturaInscrita, numeroParalelo);
+					}
+					catch(Exception e) {
+						System.out.println("no se pudo asociar al alumno con la asignatura inscrita");
+					}
+				}	
+			}
+			
 			
 		}
 	}

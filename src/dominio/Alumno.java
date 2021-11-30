@@ -52,7 +52,7 @@ public class Alumno {
 		this.contrasena = contrasena;
 	}
 	
-	public ListaAsignaturas getListaAsignatura() 
+	public ListaAsignaturas getListaAsignaturas() 
 	{
 		return lista;
 	}
