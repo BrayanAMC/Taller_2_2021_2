@@ -8,6 +8,7 @@ public class Asignatura {
 	private String tipo;
 	private Profesor profesor;
 	private ListaAlumnos lista;
+	private String paralelo;
 	
 	public Asignatura(String codigo,String nombre,int creditos,String tipo)
 	{
@@ -17,6 +18,7 @@ public class Asignatura {
 		this.tipo = tipo;
 		lista = new ListaAlumnos(100);
 		profesor = null;
+		paralelo = null;
 	}
 	public String getCodigo() 
 	{
@@ -54,6 +56,16 @@ public class Asignatura {
 	{
 		return lista;
 	}
+	public String getParalelo() {
+		return paralelo;
+	}
+	public void setParalelo(String paralelo) {
+		this.paralelo = paralelo;
+	}
+	public void setProfesor(Profesor profesor) {
+		this.profesor = profesor;
+	}
+	
 	
 	
 	

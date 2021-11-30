@@ -1,6 +1,7 @@
 package logica;
 
 import dominio.Asignatura;
+import dominio.Profesor;
 import ucn.StdOut;
 
 public class SistemaIMPL implements Sistema {
@@ -43,8 +44,9 @@ public class SistemaIMPL implements Sistema {
 
 	@Override
 	public boolean ingresarProfesor(String rut, String correo, String contraseña, int salario) {
-		// TODO Auto-generated method stub
-		return false;
+		Profesor profesor = new Profesor(rut,correo,contraseña,salario);
+		boolean out = generalProfesores.ingresarProfesor(profesor);
+		return out;
 	}
 
 	@Override
@@ -54,9 +56,19 @@ public class SistemaIMPL implements Sistema {
 	}
 
 	@Override
-	public void asociarAsignaturaProfesor(String rutProfesor, String codigoAsignatura) {
-		// TODO Auto-generated method stub
-		
+	public void asociarAsignaturaProfesor(String rutProfesor, String codigoAsignatura,String numParalelo) {
+		Profesor p = generalProfesores.buscarProfesorRut(rutProfesor);
+		Asignatura asignatura = generalAsignaturas.buscarAsignaturaCode(codigoAsignatura);
+		if(asignatura!=null && p!=null) 
+		{
+			//ambos existen
+			asignatura.setProfesor(p);
+			asignatura.setParalelo(numParalelo);
+			p.getListaAsignaturas().ingresarAsignatura(asignatura);
+			
+		}
+		Asignatura asignatura_dictando = generalAsignaturas.buscarAsignaturaCode(codigoAsignatura);
+		System.out.println("el profesor con el rut: "+p.getRut()+" esta dictando el ramo de: "+asignatura_dictando.getNombre());
 	}
 
 	@Override
