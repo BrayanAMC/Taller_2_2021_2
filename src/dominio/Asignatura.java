@@ -9,6 +9,8 @@ public class Asignatura {
 	private Profesor profesor;
 	private ListaAlumnos lista;
 	private String paralelo;
+	private double notaFinal; //si es 0 significa que es una asignatura inscrita , de lo contrario
+				              //es una asignatura cursada
 	
 	public Asignatura(String codigo,String nombre,int creditos,String tipo)
 	{
@@ -19,6 +21,7 @@ public class Asignatura {
 		lista = new ListaAlumnos(100);
 		profesor = null;
 		paralelo = null;
+		notaFinal = 0;
 	}
 	public String getCodigo() 
 	{
@@ -65,6 +68,13 @@ public class Asignatura {
 	public void setProfesor(Profesor profesor) {
 		this.profesor = profesor;
 	}
+	public double getNotaFinal() {
+		return notaFinal;
+	}
+	public void setNotaFinal(double notaFinal) {
+		this.notaFinal = notaFinal;
+	}
+	
 	
 	
 	

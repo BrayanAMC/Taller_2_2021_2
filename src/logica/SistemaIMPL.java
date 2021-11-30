@@ -1,5 +1,8 @@
 package logica;
 
+import java.sql.SQLOutput;
+
+import dominio.Alumno;
 import dominio.Asignatura;
 import dominio.Profesor;
 import ucn.StdOut;
@@ -17,8 +20,9 @@ public class SistemaIMPL implements Sistema {
 
 	@Override
 	public boolean ingresarEstudiante(String rut, String correo, int nivel, String contrasena) {
-		// TODO Auto-generated method stub
-		return false;
+		Alumno alumno = new Alumno(rut,correo,nivel,contrasena);
+		boolean out = generalAlumnos.agregarAlumno(alumno);
+		return out;
 	}
 
 	@Override
@@ -50,8 +54,21 @@ public class SistemaIMPL implements Sistema {
 	}
 
 	@Override
-	public void asociarEstudianteAsignatura(String rutEstudiante, String codigoAsignatura) {
-		// TODO Auto-generated method stub
+	public void asociarEstudianteAsignatura(String rutEstudiante, String codigoAsignatura,double notaFinal) {
+		Alumno alumno = generalAlumnos.buscarAlumnoRut(rutEstudiante);
+		Asignatura asignatura = generalAsignaturas.buscarAsignaturaCode(codigoAsignatura);
+		if(alumno!=null && asignatura!=null) 
+		{
+			asignatura.getListaAlumnos().agregarAlumno(alumno);
+			
+			Asignatura asignaturaPoseida = new Asignatura(asignatura.getCodigo(),asignatura.getNombre(),asignatura.getCreditos(),asignatura.getTipo());
+			alumno.getListaAsignatura().ingresarAsignatura(asignaturaPoseida);
+			alumno.getListaAsignatura().buscarAsignaturaCode(codigoAsignatura).setNotaFinal(notaFinal);
+			System.out.println("---prueba---");
+			System.out.println(asignatura.getNotaFinal());
+			System.out.println(alumno.getListaAsignatura().buscarAsignaturaCode(codigoAsignatura).getNotaFinal());
+			
+		}
 		
 	}
 

@@ -6,7 +6,7 @@ public interface Sistema {
 	boolean ingresarAsignaturaPreRequisito(String codigo);
 	boolean ingresarAsignaturaOpcional(String código,String nombre,int créditos,String tipo,int credPreRequisito);
 	boolean ingresarProfesor(String rut,String correo,String contraseña,int salario);
-	void asociarEstudianteAsignatura(String rutEstudiante,String codigoAsignatura);
+	void asociarEstudianteAsignatura(String rutEstudiante,String codigoAsignatura,double notaFinal);
 	void asociarAsignaturaProfesor(String rutProfesor,String codigoAsignatura,String numParalelo);
 	void escribirEstudiante();
 	void login(String correo,String contrasena);
