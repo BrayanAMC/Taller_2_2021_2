@@ -1,5 +1,8 @@
 package logica;
 
+import dominio.Asignatura;
+import ucn.StdOut;
+
 public class SistemaIMPL implements Sistema {
 
 	private ListaAlumnos generalAlumnos;
@@ -20,21 +23,22 @@ public class SistemaIMPL implements Sistema {
 	@Override
 	public boolean ingresarAsignaturaObligatoria(String código, String nombre, int créditos, String tipo, int nivel,
 			int asignaturasPreRequisito) {
-		// TODO Auto-generated method stub
-		return false;
+		AsignaturaObligatoria asigObli = new AsignaturaObligatoria(código, nombre, créditos, tipo, nivel, asignaturasPreRequisito);
+		boolean out = generalAsignaturas.ingresarAsignatura(asigObli);
+		return out;
 	}
 
 	@Override
 	public boolean ingresarAsignaturaPreRequisito(String codigo) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
 	public boolean ingresarAsignaturaOpcional(String código, String nombre, int créditos, String tipo,
 			int credPreRequisito) {
-		// TODO Auto-generated method stub
-		return false;
+		AsignaturaOpcional asigOpc = new AsignaturaOpcional(código, nombre, créditos, tipo, credPreRequisito);
+		boolean out = generalAsignaturas.ingresarAsignatura(asigOpc);
+		return out;
 	}
 
 	@Override
@@ -123,7 +127,20 @@ public class SistemaIMPL implements Sistema {
 
 	@Override
 	public void asociarAsignaturaAsignaturaPre(String codigoAsignatura, String codigoAsignaturaPre) {
-		// TODO Auto-generated method stub
+		AsignaturaObligatoria asignatura = (AsignaturaObligatoria) generalAsignaturas.buscarAsignaturaCode(codigoAsignatura);
+		if(asignatura != null) 
+		{
+			asignatura.ingresarListaPre(codigoAsignaturaPre);
+			
+		}
+		Asignatura a = generalAsignaturas.buscarAsignaturaCode(codigoAsignatura);
+		if(a instanceof AsignaturaObligatoria) 
+		{
+			AsignaturaObligatoria obligatoria = (AsignaturaObligatoria)a;
+			System.out.println(obligatoria.obtenerCodigoAsigPre(0));
+			System.out.println(obligatoria.obtenerCodigoAsigPre(1));
+			System.out.println(obligatoria.obtenerCodigoAsigPre(2));
+		}
 		
 	}
 

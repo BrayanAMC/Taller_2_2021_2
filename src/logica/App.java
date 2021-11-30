@@ -51,7 +51,13 @@ public class App {
 			if(tipoAsig.equals("opcional")) 
 			{	
 				int creditosAsigPre = reg.getInt();
-				s.ingresarAsignaturaOpcional(codigoAsig, nomAsig, creditos, tipoAsig, creditosAsigPre);
+				boolean ingreso3 = s.ingresarAsignaturaOpcional(codigoAsig, nomAsig, creditos, tipoAsig, creditosAsigPre);
+				if(ingreso3) 
+				{
+					System.out.println("la asignatura: "+nomAsig+" se añadio correctamente");
+				}else {
+					System.out.println("la asignatura: "+nomAsig+" no se añadio correctamente");
+				}
 			}
 			
 			

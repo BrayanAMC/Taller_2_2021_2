@@ -6,14 +6,16 @@ public class AsignaturaObligatoria extends Asignatura {
 
 	private int nivel;
 	private int cantPre;
-	private ListaAsignaturas listaPre;
+	private String[] listaPre;
+	private int posicionListaPre;
 	
 	public AsignaturaObligatoria(String codigo,String nombre,int creditos,String tipo,int nivel,int cantPre)
 	{
 		super(codigo,nombre,creditos,tipo);
 		this.nivel = nivel;
 		this.cantPre = cantPre;
-		listaPre = new ListaAsignaturas(999);
+		listaPre = new String[cantPre];
+		posicionListaPre = 0;
 	}
 
 	public int getNivel() {
@@ -32,8 +34,22 @@ public class AsignaturaObligatoria extends Asignatura {
 		this.cantPre = cantPre;
 	}
 
-	public ListaAsignaturas getListaPre() {
+	public String[] getListaPre() {
 		return listaPre;
+	}
+	public void ingresarListaPre(String codigoPre) 
+	{
+		listaPre[posicionListaPre] = codigoPre;
+		posicionListaPre++;
+	}
+	public String obtenerCodigoAsigPre(int i) 
+	{
+		if(i<cantPre) {
+			return listaPre[i];
+		}	
+		else {
+			return "hola";
+		}
 	}
 	
 	
