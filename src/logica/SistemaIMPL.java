@@ -64,10 +64,10 @@ public class SistemaIMPL implements Sistema {
 			Asignatura asignaturaPoseida = new Asignatura(asignatura.getCodigo(),asignatura.getNombre(),asignatura.getCreditos(),asignatura.getTipo());
 			alumno.getListaAsignatura().ingresarAsignatura(asignaturaPoseida);
 			alumno.getListaAsignatura().buscarAsignaturaCode(codigoAsignatura).setNotaFinal(notaFinal);
-			System.out.println("---prueba---");
+			System.out.println(asignatura.getCodigo());
+			System.out.println(asignaturaPoseida.getCodigo());
 			System.out.println(asignatura.getNotaFinal());
-			System.out.println(alumno.getListaAsignatura().buscarAsignaturaCode(codigoAsignatura).getNotaFinal());
-			
+			System.out.println(asignaturaPoseida.getNotaFinal());
 		}
 		
 	}

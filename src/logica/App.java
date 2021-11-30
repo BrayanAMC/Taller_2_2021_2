@@ -39,10 +39,7 @@ public class App {
 			}else {
 				System.out.println("el estudiante :"+rut+" no se pudo ingresar");
 			}
-			System.out.println("filtro0");
 			int line2 = Integer.parseInt(scan.nextLine());
-			System.out.println("filtro2");
-			System.out.println(line2);
 			for (int i = 0; i < line2; i++) {
 				String line3 = scan.nextLine();
 				String [] partes2 = line3.split(",");
