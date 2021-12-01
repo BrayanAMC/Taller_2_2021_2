@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import ucn.ArchivoEntrada;
 import ucn.Registro;
+import ucn.StdIn;
 
 
 public class App {
@@ -18,7 +19,314 @@ public class App {
 		leerProfesores(s);
 		leerParalelos(s);
 		leerEstudiantes(s);
+		inicioSesion(s);
 
+	}
+	private static void inicioSesion(Sistema s) {
+		Scanner entrada = new Scanner(System.in);
+		System.out.println("ingrese una opcion\n 1) inicio sesion \n2)cerrar sesion");
+		int opcion = -1;
+		boolean repetir = true;
+		while(repetir)//controla que el dato ingresado sea un int
+		{
+			try 
+			{
+				opcion = entrada.nextInt();
+				repetir = false;
+			}catch(Exception e){
+				System.out.println("dato mal ingresado,intente nuevamente");
+        		System.out.println("ingrese una opcion\n1)iniciar sesion \n2)cerrar");
+        		entrada.nextLine();
+			}
+		}
+		while(opcion!=2) 
+		{
+			switch(opcion) {
+			case 1:
+				//eligio iniciar sesion
+				System.out.println("ingrese su correo");
+				String correo = StdIn.readString();
+				System.out.println("ingrese su contrasena");
+				String contrasena = StdIn.readString();
+				if(correo.equalsIgnoreCase("Admin")&& contrasena.equalsIgnoreCase("GHI_789")) 
+				{
+					//se a logeado un admin
+					System.out.println("usted a entrado como admin");
+				}
+				else {
+					try {
+						
+						String registro = s.login(correo, contrasena);
+						if(registro.equalsIgnoreCase("0")) 
+						{
+							System.out.println("contrasena o correo incorrectos");
+						}else {
+							//desplegar menu
+							System.out.println("todo correcto debe ingresar una fecha");
+							System.out.println("ingrese la fecha actual:");
+							int dia = -1;
+							int mes = -1;
+							int anio = -1;
+							boolean repetir2 = true;
+							while(repetir2) {
+								try {
+									System.out.println("ingrese el dia:");
+									dia = entrada.nextInt();
+									System.out.println("ingrese mes:");
+									mes = entrada.nextInt();
+									System.out.println("ingrese año");
+									anio = entrada.nextInt();
+									repetir2 = false;
+									
+								}catch(Exception e){
+									System.out.println("dato mal ingresado,intente nuevamente");
+					        		System.out.println("ingrese una opciones de meses validas");
+					        		//System.out.println("ingrese el dia:");
+					        		entrada.nextLine();
+								}
+							}
+							//definir con los datos de fechas en que periodo de semestre nos encontramos
+							int periodoActual = definirPeriodo(dia,mes,anio);
+							// 1---> inicio semestre
+							// 2---> mitad semestre
+							// 3---> final semestre
+							// 4---> cierre sistema
+							//-1---> feliz vacaciones
+							if(registro.equalsIgnoreCase("1")) 
+							{
+								System.out.println("menu para estudiante");
+								if(periodoActual == 1) 
+								{
+									menuEstudianteInicioSemestre(correo,s);
+								}
+								if(periodoActual == 2) 
+								{
+									menuEstudianteMitadSemestre(correo,s);
+								}
+								if(periodoActual == 3) 
+								{
+									System.out.println("un estudiante no tiene menu para finales de semestre");
+								}
+								
+								
+						
+							}
+							if(registro.equalsIgnoreCase("2")) 
+							{
+								System.out.println("menu para profesores");
+								if(periodoActual == 1) 
+								{
+									menuProfesorInicioSemestre(correo,s);
+								}
+								if(periodoActual == 2) 
+								{
+									System.out.println("los profesores no tienen menu para mitad de semestre");
+								} 
+								if(periodoActual == 3) 
+								{
+									menuProfesorFinalSemestre(correo,s);
+								}
+								
+							}
+						}
+						
+					}catch(Exception e){
+						System.out.println("error al verificar usuario en el catch");
+						
+					}
+				}
+				
+				break;
+			default:
+				System.out.println("dato mal ingresado");
+			
+			}
+			System.out.println("ingrese una opcion\n 1) inicio sesion \n2)cerrar sesion");
+			opcion = -1;
+			repetir = true;
+			while(repetir)//controla que el dato ingresado sea un int
+			{
+				try 
+				{
+					opcion = entrada.nextInt();
+					repetir = false;
+				}catch(Exception e){
+					System.out.println("dato mal ingresado,intente nuevamente");
+	        		System.out.println("ingrese una opcion\n1)iniciar sesion \n2)cerrar");
+	        		entrada.nextLine();
+				}
+			}
+			
+		}
+		
+		
+	}
+	private static void menuProfesorFinalSemestre(String correo, Sistema s) {
+		// TODO Auto-generated method stub
+		
+	}
+	private static void menuProfesorInicioSemestre(String correo, Sistema s) {
+		// TODO Auto-generated method stub
+		
+	}
+	private static void menuEstudianteMitadSemestre(String correo, Sistema s) {
+		// TODO Auto-generated method stub
+		
+	}
+	private static void menuEstudianteInicioSemestre(String correo, Sistema s) {
+		Scanner entrada = new Scanner(System.in);
+		boolean repetir = true;
+        int opcion =-1;
+        System.out.println("1)Inscripcion Asignatura\n2)Eliminar Asignatura\n3)Salir");
+        while(repetir) 
+        {
+        	try 
+			{
+				opcion = entrada.nextInt();
+				repetir = false;
+			}catch(Exception e){
+				System.out.println("dato mal ingresado,intente nuevamente");
+        		System.out.println("1)Inscripcion Asignatura\n2)Eliminar Asignatura\n3)Salir");
+        		entrada.nextLine();
+			}
+        }
+        while(opcion!=3) 
+        {
+        	switch(opcion) 
+        	{
+        	case 1:
+        		System.out.println("se eligio inscripcion asignatura");
+        		String disponibles = s.obtenerAsignaturasDisponibles(correo);
+        		System.out.println(disponibles);
+        		if(disponibles.equalsIgnoreCase("no hay asignaturas disponibles para inscribir")) 
+        		{
+        			break;
+        		}
+        		System.out.println("ingrese el codigo de la asignatura que desea inscribir: ");
+        		boolean repetir2 = true;
+        		int opcion2 = -1;
+        		int opcion3 = -1;
+        		while(repetir2) 
+        		{
+        			try {
+        				opcion2 = entrada.nextInt();
+        				System.out.println("ingrese el paralelo: ");
+        				opcion3 = entrada.nextInt();
+        				repetir2 = false;
+        				
+        			}catch(Exception e) {
+        				System.out.println("codigo o paralelo  mal ingresado");
+        				entrada.nextLine();
+        			}
+        		}
+        		String auxOpcion2 = Integer.toString(opcion2);
+        		String auxOpcion3 = Integer.toString(opcion3);
+
+        		boolean inscribirAsig = s.inscribirAsignaturas(auxOpcion2,correo,auxOpcion3);
+        		if(inscribirAsig) 
+        		{
+        			System.out.println("se ha inscrito en el paralelo "+auxOpcion3+" de la asignatura: "+auxOpcion2);
+        		}else {
+        			System.out.println("no ha podido inscribir el paralelo "+auxOpcion3+" de la asignatura: "+auxOpcion2);
+
+        		}
+        		break;
+        	case 2:
+        		System.out.println("se eligio elimianar Asignatura");
+        		break;
+        	}
+        	System.out.println("1)Inscripcion Asignatura\n2)Eliminar Asignatura\n3)Salir");
+			opcion = -1;
+			repetir = true;
+			while(repetir)//controla que el dato ingresado sea un int
+			{
+				try 
+				{
+					opcion = entrada.nextInt();
+					repetir = false;
+				}catch(Exception e){
+					System.out.println("dato mal ingresado,intente nuevamente");
+	        		System.out.println("ingrese una opcion\n1)iniciar sesion \n2)cerrar");
+	        		entrada.nextLine();
+				}
+			}
+        }
+		
+	}
+	private static int definirPeriodo(int dia, int mes, int anio) {
+		if(anio != 2021) 
+		{
+			System.out.println("feliz vacaciones");
+			return -1;
+		}
+		if(mes<=2 || mes >=8) 
+		{
+			//no hay acciones disponibles
+			System.out.println("feliz vacaciones");
+			return -1;
+		}
+		if(mes == 4) 
+		{
+			//inicio semestre
+			System.out.println("inicio semestre");
+			return 1;
+		}
+		if(mes ==6) 
+		{
+			//mitad semestre
+			System.out.println("mitad semestre");
+			return 2;
+		}
+		if(mes == 5 ) 
+		{
+			if(dia >= 3) 
+			{
+				//mitad semestre
+				System.out.println("mitad semestre");
+				return 2;
+			}else {
+				//inicio semestre
+				System.out.println("inicio semestre");
+				return 1;
+			}
+		}
+		if(mes == 7) 
+		{
+			if(dia<=11) 
+			{
+				//mitad semestre
+				System.out.println("mitad semestre");
+				return 2;
+			}
+			if(dia >=12 && dia<=25) {
+				//final semestre
+				System.out.println("final semestre");
+				return 3;
+			}
+			if(dia == 26) 
+			{
+				System.out.println("cierre sistema");
+				return 4;
+			}
+			if(dia >26) 
+			{
+				System.out.println("feliz vacaciones");
+				return -1;
+			}
+		}
+		if(mes == 3) 
+		{
+			if(dia >=8) 
+			{
+				//inicio semestre
+				System.out.println("inicio semestre");
+				return 1;
+			}else {
+				System.out.println("feliz vacaciones");
+				return -1;
+			}
+		}
+		return 0;
 	}
 	private static void leerEstudiantes(Sistema s) throws IOException{
 		Scanner scan = new Scanner(new File("estudiantes.txt"));
@@ -50,9 +358,33 @@ public class App {
 					s.asociarEstudianteAsignatura(rut, codigoAsignaturasCursadas,notaFinal);
 				}
 				catch(Exception e) {
-					System.out.println("no se pudo asociaral alumno con la asignatura cursada");
+					System.out.println("no se pudo asociar al alumno con la asignatura cursada");
 				}
 			}
+			//otro salto de linea
+			String line4 = scan.nextLine();
+			int auxLine4 = Integer.parseInt(line4);
+			if(line4.equalsIgnoreCase("0")) 
+			{
+				//estamos a principio de semestre
+				System.out.println("el estudiante aun no ha inscrito ninguna asignatura");
+			}else {
+				for(int j = 0;j<auxLine4;j++) {
+					String line5 = scan.nextLine();
+					String []partes3 = line5.split(",");
+					String codigoAsignaturaInscrita = partes3[0];
+					String numeroParalelo = partes3[1];
+					
+					try {
+						
+						s.asociarEstudianteAsignaturaInscrita(rut, codigoAsignaturaInscrita, numeroParalelo);
+					}
+					catch(Exception e) {
+						System.out.println("no se pudo asociar al alumno con la asignatura inscrita");
+					}
+				}	
+			}
+			
 			
 		}
 	}

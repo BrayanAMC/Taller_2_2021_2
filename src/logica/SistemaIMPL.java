@@ -9,6 +9,7 @@ import ucn.StdOut;
 
 public class SistemaIMPL implements Sistema {
 
+	private static final Exception NullPointerException = null;
 	private ListaAlumnos generalAlumnos;
 	private ListaAsignaturas generalAsignaturas;
 	private ListaProfesores generalProfesores;
@@ -60,14 +61,27 @@ public class SistemaIMPL implements Sistema {
 		if(alumno!=null && asignatura!=null) 
 		{
 			asignatura.getListaAlumnos().agregarAlumno(alumno);
+			if(asignatura instanceof AsignaturaObligatoria) 
+			{
+				AsignaturaObligatoria asig = (AsignaturaObligatoria)asignatura;
+				AsignaturaObligatoria asignaturaPoseida = new AsignaturaObligatoria(asig.getCodigo(),asig.getNombre(), asig.getCreditos(), asig.getTipo(), asig.getNivel(), asig.getCantPre());
+				//asignaturaPoseida.setParalelo(asignatura.getParalelo());
+				alumno.getListaAsignaturas().ingresarAsignatura(asignaturaPoseida);
+				alumno.getListaAsignaturas().buscarAsignaturaCode(codigoAsignatura).setNotaFinal(notaFinal);
+			}
+			if(asignatura instanceof AsignaturaOpcional) 
+			{
+				AsignaturaOpcional asig2 = (AsignaturaOpcional)asignatura;
+				AsignaturaOpcional asignaturaPoseida2 = new AsignaturaOpcional(asig2.getCodigo(),asig2.getNombre(),asig2.getCreditos(),asig2.getTipo(),asig2.getCreditosPre());
+				//asignaturaPoseida2.ingresarParalelo(asignatura.);
+				alumno.getListaAsignaturas().ingresarAsignatura(asignaturaPoseida2);
+				alumno.getListaAsignaturas().buscarAsignaturaCode(codigoAsignatura).setNotaFinal(notaFinal);
+			}
 			
 			Asignatura asignaturaPoseida = new Asignatura(asignatura.getCodigo(),asignatura.getNombre(),asignatura.getCreditos(),asignatura.getTipo());
-			alumno.getListaAsignatura().ingresarAsignatura(asignaturaPoseida);
-			alumno.getListaAsignatura().buscarAsignaturaCode(codigoAsignatura).setNotaFinal(notaFinal);
-			System.out.println(asignatura.getCodigo());
-			System.out.println(asignaturaPoseida.getCodigo());
-			System.out.println(asignatura.getNotaFinal());
-			System.out.println(asignaturaPoseida.getNotaFinal());
+			alumno.getListaAsignaturas().ingresarAsignatura(asignaturaPoseida);
+			alumno.getListaAsignaturas().buscarAsignaturaCode(codigoAsignatura).setNotaFinal(notaFinal);
+			
 		}
 		
 	}
@@ -75,13 +89,33 @@ public class SistemaIMPL implements Sistema {
 	@Override
 	public void asociarAsignaturaProfesor(String rutProfesor, String codigoAsignatura,String numParalelo) {
 		Profesor p = generalProfesores.buscarProfesorRut(rutProfesor);
-		Asignatura asignatura = generalAsignaturas.buscarAsignaturaCode(codigoAsignatura);
-		if(asignatura!=null && p!=null) 
+		Asignatura a = generalAsignaturas.buscarAsignaturaCode(codigoAsignatura);
+		if(a!=null && p!=null) 
 		{
 			//ambos existen
-			asignatura.setProfesor(p);
-			asignatura.setParalelo(numParalelo);
-			p.getListaAsignaturas().ingresarAsignatura(asignatura);
+			a.setProfesor(p);
+			//a.setParalelo(numParalelo);
+			a.ingresarParalelo(numParalelo);
+			//p.getListaAsignaturas().ingresarAsignatura(asignatura);
+			
+			if(a instanceof AsignaturaObligatoria) 
+			{
+				AsignaturaObligatoria asig = (AsignaturaObligatoria)a;
+				AsignaturaObligatoria asignaturaInscrita = new AsignaturaObligatoria(asig.getCodigo(),asig.getNombre(), asig.getCreditos(), asig.getTipo(), asig.getNivel(), asig.getCantPre());
+				asignaturaInscrita.setProfesor(p);
+				asignaturaInscrita.ingresarParalelo(numParalelo);
+				p.getListaAsignaturas().ingresarAsignatura(asignaturaInscrita);
+				
+			}
+			if(a instanceof AsignaturaOpcional) 
+			{
+				AsignaturaOpcional asig2 = (AsignaturaOpcional)a;
+				AsignaturaOpcional asignaturaInscrita2 = new AsignaturaOpcional(asig2.getCodigo(),asig2.getNombre(),asig2.getCreditos(),asig2.getTipo(),asig2.getCreditosPre());
+				asignaturaInscrita2.setProfesor(p);
+				asignaturaInscrita2.ingresarParalelo(numParalelo);
+				p.getListaAsignaturas().ingresarAsignatura(asignaturaInscrita2);
+				
+			}
 			
 		}
 		Asignatura asignatura_dictando = generalAsignaturas.buscarAsignaturaCode(codigoAsignatura);
@@ -95,20 +129,121 @@ public class SistemaIMPL implements Sistema {
 	}
 
 	@Override
-	public void login(String correo, String contrasena) {
-		// TODO Auto-generated method stub
+	public String login(String correo, String contrasena) {
 		
+		for (int i = 0; i < generalAlumnos.getCant(); i++) {
+			if(generalAlumnos.buscarAlumnoI(i).getCorreo().equalsIgnoreCase(correo)) 
+			{
+				if(generalAlumnos.buscarAlumnoI(i).getContrasena().equalsIgnoreCase(contrasena)) 
+				{
+					return "1";
+				}
+				
+			}
+			
+		}
+		for (int j = 0; j < generalProfesores.getCant(); j++) {
+			if(generalProfesores.buscarProfesorI(j).getCorreo().equalsIgnoreCase(correo)) 
+			{
+				if(generalProfesores.buscarProfesorI(j).getContrasena().equalsIgnoreCase(contrasena)) 
+				{
+					return "2";
+				}
+			}
+			
+		}
+		return "0";
 	}
 
 	@Override
-	public void inscribirAsignaturas(String codigoAsignatura) {
-		// TODO Auto-generated method stub
+	public boolean inscribirAsignaturas(String codigoAsignatura,String correo,String paralelo) {
+		int contador = 0;
+		Asignatura asigSistema = generalAsignaturas.buscarAsignaturaCode(codigoAsignatura);
+		Alumno alumno = generalAlumnos.buscarAlumnoCorreo(correo);
+		String currentCodigo;
 		
+		for (int i = 0; i < alumno.getListaAsignaturas().getCant(); i++) {
+			currentCodigo = alumno.getListaAsignaturas().buscarAsignaturaI(i).getCodigo();
+			
+			if(currentCodigo.equalsIgnoreCase(codigoAsignatura)) 
+			{
+				contador++;
+			}
+			
+		}
+		if(contador == 0) 
+		{
+			//no tiene esa asignatura en su lista por lo tanto se puede inscribir
+			Asignatura a = generalAsignaturas.buscarAsignaturaCode(codigoAsignatura);
+			if(a!=null && alumno!=null) 
+			{
+				if(a instanceof AsignaturaObligatoria) 
+				{
+					AsignaturaObligatoria asig = (AsignaturaObligatoria)a;
+					AsignaturaObligatoria asignaturaInscrita = new AsignaturaObligatoria(asig.getCodigo(),asig.getNombre(), asig.getCreditos(), asig.getTipo(), asig.getNivel(), asig.getCantPre());
+					asignaturaInscrita.ingresarParalelo(paralelo);
+					return alumno.getListaAsignaturas().ingresarAsignatura(asignaturaInscrita);
+					
+				} 
+				if(a instanceof AsignaturaOpcional) 
+				{
+					AsignaturaOpcional asig2 = (AsignaturaOpcional)a;
+					AsignaturaOpcional asignaturaInscrita2 = new AsignaturaOpcional(asig2.getCodigo(),asig2.getNombre(),asig2.getCreditos(),asig2.getTipo(),asig2.getCreditosPre());
+					asignaturaInscrita2.ingresarParalelo(paralelo);
+					return alumno.getListaAsignaturas().ingresarAsignatura(asignaturaInscrita2);
+
+				} 
+				
+			}else {
+				return false;
+			}
+			
+		}
+		
+		return false;
 	}
 
 	@Override
-	public void obtenerAsignaturasDisponibles(String rutAlumno) {
-		// TODO Auto-generated method stub
+	public String obtenerAsignaturasDisponibles(String correo) {
+		//solo mostrar las asignaturas que el alumno no tenga inscritas
+		int contador = 0;
+		String out = "";
+		String codigoAlumno = "";
+		Alumno alumno = generalAlumnos.buscarAlumnoCorreo(correo);
+		if (alumno!=null) {
+			out+= "asignaturas disponibles:\n";
+			for (int i = 0; i < generalAsignaturas.getCant(); i++) {
+				contador = 0;
+				for (int j = 0; j < alumno.getListaAsignaturas().getCant(); j++) {
+					codigoAlumno = alumno.getListaAsignaturas().buscarAsignaturaI(j).getCodigo();
+					if(generalAsignaturas.buscarAsignaturaI(i).getCodigo().equalsIgnoreCase(codigoAlumno)) 
+					{
+						contador++;
+						//Asignatura asignaturaCorrecta = generalAsignaturas.buscarAsignaturaI(i);
+						//out+= asignaturaCorrecta.getNombre()+" codigo: "+asignaturaCorrecta.getCodigo()+"\n";
+					}else {
+						
+					}
+					
+				}
+				if(contador == 0) 
+				{
+					Asignatura asignaturaCorrecta = generalAsignaturas.buscarAsignaturaI(i);
+					out+= asignaturaCorrecta.getNombre()+" codigo: "+asignaturaCorrecta.getCodigo()+" paralelos: "+asignaturaCorrecta.getParalelos()+"\n";
+				}
+				
+			}
+			if(contador != 0) 
+			{
+				return "no hay asignaturas disponibles para inscribir";
+			}else {
+				return out;
+			}	
+		}else {
+			return "";
+		}			
+			
+		
 		
 	}
 
@@ -169,6 +304,32 @@ public class SistemaIMPL implements Sistema {
 			System.out.println(obligatoria.obtenerCodigoAsigPre(0));
 			System.out.println(obligatoria.obtenerCodigoAsigPre(1));
 			System.out.println(obligatoria.obtenerCodigoAsigPre(2));
+		}
+		
+	}
+
+	@Override
+	public void asociarEstudianteAsignaturaInscrita(String rutEstudiante, String codigoAsignatura, String paralelo) {
+		Alumno alumno = generalAlumnos.buscarAlumnoRut(rutEstudiante);
+		Asignatura a = generalAsignaturas.buscarAsignaturaCode(codigoAsignatura);
+		if(alumno!=null && a!=null) 
+		{
+			a.getListaAlumnos().agregarAlumno(alumno);
+			if(a instanceof AsignaturaObligatoria) 
+			{
+				AsignaturaObligatoria asig = (AsignaturaObligatoria)a;
+				AsignaturaObligatoria asignaturaInscrita = new AsignaturaObligatoria(asig.getCodigo(),asig.getNombre(), asig.getCreditos(), asig.getTipo(), asig.getNivel(), asig.getCantPre());
+				asignaturaInscrita.ingresarParalelo(paralelo);
+				alumno.getListaAsignaturas().ingresarAsignatura(asignaturaInscrita);
+			}
+			if(a instanceof AsignaturaOpcional) 
+			{
+				AsignaturaOpcional asig2 = (AsignaturaOpcional)a;
+				AsignaturaOpcional asignaturaInscrita2 = new AsignaturaOpcional(asig2.getCodigo(),asig2.getNombre(),asig2.getCreditos(),asig2.getTipo(),asig2.getCreditosPre());
+				asignaturaInscrita2.ingresarParalelo(paralelo);
+				alumno.getListaAsignaturas().ingresarAsignatura(asignaturaInscrita2);
+			}
+			
 		}
 		
 	}

@@ -9,9 +9,9 @@ public interface Sistema {
 	void asociarEstudianteAsignatura(String rutEstudiante,String codigoAsignatura,double notaFinal);
 	void asociarAsignaturaProfesor(String rutProfesor,String codigoAsignatura,String numParalelo);
 	void escribirEstudiante();
-	void login(String correo,String contrasena);
-	void inscribirAsignaturas(String codigoAsignatura);
-	void obtenerAsignaturasDisponibles(String rutAlumno);
+	String login(String correo,String contrasena);
+	boolean inscribirAsignaturas(String codigoAsignatura,String correo,String paralelo);
+	String obtenerAsignaturasDisponibles(String correo);
 	boolean eliminarAsignatura(String código ,String asignatura);
 	void obtenerAsignaturasInscritas(String rutAlumno);
 	void chequeoAlumnos(String codigoAsignatura);
@@ -20,4 +20,5 @@ public interface Sistema {
 	void CierreSemestre();
 	void escribirEstudiantesEgresados();
 	void asociarAsignaturaAsignaturaPre(String codigoAsignatura,String codigoAsignaturaPre);
+	void asociarEstudianteAsignaturaInscrita(String rutEstudiante,String codigoAsignatura,String paralelo);
 }

@@ -8,7 +8,8 @@ public class Asignatura {
 	private String tipo;
 	private Profesor profesor;
 	private ListaAlumnos lista;
-	private String paralelo;
+	private String[] paralelo;
+	private int contadorParalelo;
 	private double notaFinal; //si es 0 significa que es una asignatura inscrita , de lo contrario
 				              //es una asignatura cursada
 	
@@ -20,8 +21,9 @@ public class Asignatura {
 		this.tipo = tipo;
 		lista = new ListaAlumnos(100);
 		profesor = null;
-		paralelo = null;
+		paralelo = new String[20];
 		notaFinal = 0;
+		contadorParalelo = 0;
 	}
 	public String getCodigo() 
 	{
@@ -59,11 +61,19 @@ public class Asignatura {
 	{
 		return lista;
 	}
-	public String getParalelo() {
-		return paralelo;
+	public void ingresarParalelo(String paraleloNuevo) {
+		if(contadorParalelo<paralelo.length) {
+			paralelo[contadorParalelo] = paraleloNuevo;
+			contadorParalelo++;
+		}
 	}
-	public void setParalelo(String paralelo) {
-		this.paralelo = paralelo;
+	public String getParalelos() 
+	{
+		String out = " ";
+		for (int i = 0; i < contadorParalelo; i++) {
+			out+= paralelo[i]+" ";
+		}
+		return out;
 	}
 	public void setProfesor(Profesor profesor) {
 		this.profesor = profesor;
