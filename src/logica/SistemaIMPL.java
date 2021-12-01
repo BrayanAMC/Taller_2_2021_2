@@ -185,6 +185,7 @@ public class SistemaIMPL implements Sistema {
 					AsignaturaObligatoria asig = (AsignaturaObligatoria)a;
 					AsignaturaObligatoria asignaturaInscrita = new AsignaturaObligatoria(asig.getCodigo(),asig.getNombre(), asig.getCreditos(), asig.getTipo(), asig.getNivel(), asig.getCantPre());
 					asignaturaInscrita.ingresarParalelo(paralelo);
+					asignaturaInscrita.ingresarAlumno(alumno);
 					return alumno.getListaAsignaturas().ingresarAsignatura(asignaturaInscrita);
 					
 				} 
@@ -193,6 +194,7 @@ public class SistemaIMPL implements Sistema {
 					AsignaturaOpcional asig2 = (AsignaturaOpcional)a;
 					AsignaturaOpcional asignaturaInscrita2 = new AsignaturaOpcional(asig2.getCodigo(),asig2.getNombre(),asig2.getCreditos(),asig2.getTipo(),asig2.getCreditosPre());
 					asignaturaInscrita2.ingresarParalelo(paralelo);
+					asignaturaInscrita2.ingresarAlumno(alumno);
 					return alumno.getListaAsignaturas().ingresarAsignatura(asignaturaInscrita2);
 
 				} 
