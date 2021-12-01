@@ -51,9 +51,11 @@ public class App {
 				if(correo.equalsIgnoreCase("Admin")&& contrasena.equalsIgnoreCase("GHI_789")) 
 				{
 					//se a logeado un admin
+					System.out.println("usted a entrado como admin");
 				}
 				else {
 					try {
+						
 						String registro = s.login(correo, contrasena);
 						if(registro.equalsIgnoreCase("0")) 
 						{
@@ -83,13 +85,48 @@ public class App {
 					        		entrada.nextLine();
 								}
 							}
+							//definir con los datos de fechas en que periodo de semestre nos encontramos
+							int periodoActual = definirPeriodo(dia,mes,anio);
+							// 1---> inicio semestre
+							// 2---> mitad semestre
+							// 3---> final semestre
+							// 4---> cierre sistema
+							//-1---> feliz vacaciones
 							if(registro.equalsIgnoreCase("1")) 
 							{
 								System.out.println("menu para estudiante");
+								if(periodoActual == 1) 
+								{
+									menuEstudianteInicioSemestre(correo,s);
+								}
+								if(periodoActual == 2) 
+								{
+									menuEstudianteMitadSemestre(correo,s);
+								}
+								if(periodoActual == 3) 
+								{
+									System.out.println("un estudiante no tiene menu para finales de semestre");
+								}
+								
+								
+						
 							}
 							if(registro.equalsIgnoreCase("2")) 
 							{
 								System.out.println("menu para profesores");
+								if(periodoActual == 1) 
+								{
+									menuProfesorInicioSemestre(correo,s);
+								}
+								if(periodoActual == 2) 
+								{
+									System.out.println("los profesores no tienen menu para mitad de semestre");
+								} 
+								if(periodoActual == 3) 
+								{
+									menuProfesorFinalSemestre(correo,s);
+								}
+								
 							}
 						}
 						
@@ -123,6 +160,97 @@ public class App {
 		}
 		
 		
+	}
+	private static void menuProfesorFinalSemestre(String correo, Sistema s) {
+		// TODO Auto-generated method stub
+		
+	}
+	private static void menuProfesorInicioSemestre(String correo, Sistema s) {
+		// TODO Auto-generated method stub
+		
+	}
+	private static void menuEstudianteMitadSemestre(String correo, Sistema s) {
+		// TODO Auto-generated method stub
+		
+	}
+	private static void menuEstudianteInicioSemestre(String correo, Sistema s) {
+		// TODO Auto-generated method stub
+		
+	}
+	private static int definirPeriodo(int dia, int mes, int anio) {
+		if(anio != 2021) 
+		{
+			System.out.println("feliz vacaciones");
+			return -1;
+		}
+		if(mes<=2 || mes >=8) 
+		{
+			//no hay acciones disponibles
+			System.out.println("feliz vacaciones");
+			return -1;
+		}
+		if(mes == 4) 
+		{
+			//inicio semestre
+			System.out.println("inicio semestre");
+			return 1;
+		}
+		if(mes ==6) 
+		{
+			//mitad semestre
+			System.out.println("mitad semestre");
+			return 2;
+		}
+		if(mes == 5 ) 
+		{
+			if(dia >= 3) 
+			{
+				//mitad semestre
+				System.out.println("mitad semestre");
+				return 2;
+			}else {
+				//inicio semestre
+				System.out.println("inicio semestre");
+				return 1;
+			}
+		}
+		if(mes == 7) 
+		{
+			if(dia<=11) 
+			{
+				//mitad semestre
+				System.out.println("mitad semestre");
+				return 2;
+			}
+			if(dia >=12 && dia<=25) {
+				//final semestre
+				System.out.println("final semestre");
+				return 3;
+			}
+			if(dia == 26) 
+			{
+				System.out.println("cierre sistema");
+				return 4;
+			}
+			if(dia >26) 
+			{
+				System.out.println("feliz vacaciones");
+				return -1;
+			}
+		}
+		if(mes == 3) 
+		{
+			if(dia >=8) 
+			{
+				//inicio semestre
+				System.out.println("inicio semestre");
+				return 1;
+			}else {
+				System.out.println("feliz vacaciones");
+				return -1;
+			}
+		}
+		return 0;
 	}
 	private static void leerEstudiantes(Sistema s) throws IOException{
 		Scanner scan = new Scanner(new File("estudiantes.txt"));
