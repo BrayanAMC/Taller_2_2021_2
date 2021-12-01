@@ -9,6 +9,7 @@ import ucn.StdOut;
 
 public class SistemaIMPL implements Sistema {
 
+	private static final Exception NullPointerException = null;
 	private ListaAlumnos generalAlumnos;
 	private ListaAsignaturas generalAsignaturas;
 	private ListaProfesores generalProfesores;
@@ -153,8 +154,42 @@ public class SistemaIMPL implements Sistema {
 	}
 
 	@Override
-	public void obtenerAsignaturasDisponibles(String rutAlumno) {
-		// TODO Auto-generated method stub
+	public String obtenerAsignaturasDisponibles(String correo) {
+		//solo mostrar las asignaturas que el alumno no tenga inscritas
+		int contador = 0;
+		String out = "";
+		String codigoAlumno = "";
+		Alumno alumno = generalAlumnos.buscarAlumnoCorreo(correo);
+		if (alumno!=null) {
+			out+= "asignaturas disponibles:\n";
+			for (int i = 0; i < generalAsignaturas.getCant(); i++) {
+				contador = 0;
+				for (int j = 0; j < alumno.getListaAsignaturas().getCant(); j++) {
+					codigoAlumno = alumno.getListaAsignaturas().buscarAsignaturaI(j).getCodigo();
+					if(generalAsignaturas.buscarAsignaturaI(i).getCodigo().equalsIgnoreCase(codigoAlumno)) 
+					{
+						contador++;
+						//Asignatura asignaturaCorrecta = generalAsignaturas.buscarAsignaturaI(i);
+						//out+= asignaturaCorrecta.getNombre()+" codigo: "+asignaturaCorrecta.getCodigo()+"\n";
+					}else {
+						
+					}
+					
+				}
+				if(contador == 0) 
+				{
+					Asignatura asignaturaCorrecta = generalAsignaturas.buscarAsignaturaI(i);
+					out+= asignaturaCorrecta.getNombre()+" codigo: "+asignaturaCorrecta.getCodigo()+"\n";
+				}
+				
+			}
+			
+			return out;
+		}else {
+			return "";
+		}			
+			
+		
 		
 	}
 

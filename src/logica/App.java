@@ -174,7 +174,52 @@ public class App {
 		
 	}
 	private static void menuEstudianteInicioSemestre(String correo, Sistema s) {
-		// TODO Auto-generated method stub
+		Scanner entrada = new Scanner(System.in);
+		boolean repetir = true;
+        int opcion =-1;
+        System.out.println("1)Inscripcion Asignatura\n2)Eliminar Asignatura\n3)Salir");
+        while(repetir) 
+        {
+        	try 
+			{
+				opcion = entrada.nextInt();
+				repetir = false;
+			}catch(Exception e){
+				System.out.println("dato mal ingresado,intente nuevamente");
+        		System.out.println("1)Inscripcion Asignatura\n2)Eliminar Asignatura\n3)Salir");
+        		entrada.nextLine();
+			}
+        }
+        while(opcion!=3) 
+        {
+        	switch(opcion) 
+        	{
+        	case 1:
+        		System.out.println("se eligio inscripcion asignatura");
+        		String disponibles = s.obtenerAsignaturasDisponibles(correo);
+        		System.out.println(disponibles);
+        		//boolean inscribirAsig = s.inscribirAsignaturas()
+        		break;
+        	case 2:
+        		System.out.println("se eligio elimianar Asignatura");
+        		break;
+        	}
+        	System.out.println("1)Inscripcion Asignatura\n2)Eliminar Asignatura\n3)Salir");
+			opcion = -1;
+			repetir = true;
+			while(repetir)//controla que el dato ingresado sea un int
+			{
+				try 
+				{
+					opcion = entrada.nextInt();
+					repetir = false;
+				}catch(Exception e){
+					System.out.println("dato mal ingresado,intente nuevamente");
+	        		System.out.println("ingrese una opcion\n1)iniciar sesion \n2)cerrar");
+	        		entrada.nextLine();
+				}
+			}
+        }
 		
 	}
 	private static int definirPeriodo(int dia, int mes, int anio) {

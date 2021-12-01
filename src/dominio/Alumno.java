@@ -8,6 +8,7 @@ public class Alumno {
 	private String correo;
 	private int nivel;
 	private String contrasena;
+	private int creditos;
 	private ListaAsignaturas lista;
 	
 	public Alumno(String rut,String correo,int nivel,String contrasena) 
@@ -16,6 +17,7 @@ public class Alumno {
 		this.correo = correo;
 		this.nivel = nivel;
 		this.contrasena = contrasena;
+		creditos = 0;
 		lista = new ListaAsignaturas(999);
 	}
 	
@@ -56,5 +58,14 @@ public class Alumno {
 	{
 		return lista;
 	}
+
+	public int getCreditos() {
+		return creditos;
+	}
+
+	public void setCreditos(int creditos) {
+		this.creditos = creditos;
+	}
+	
 	
 }

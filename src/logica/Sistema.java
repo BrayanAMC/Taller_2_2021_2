@@ -11,7 +11,7 @@ public interface Sistema {
 	void escribirEstudiante();
 	String login(String correo,String contrasena);
 	void inscribirAsignaturas(String codigoAsignatura);
-	void obtenerAsignaturasDisponibles(String rutAlumno);
+	String obtenerAsignaturasDisponibles(String correo);
 	boolean eliminarAsignatura(String código ,String asignatura);
 	void obtenerAsignaturasInscritas(String rutAlumno);
 	void chequeoAlumnos(String codigoAsignatura);
