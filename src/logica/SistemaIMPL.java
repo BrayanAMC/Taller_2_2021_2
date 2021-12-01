@@ -66,21 +66,23 @@ public class SistemaIMPL implements Sistema {
 				AsignaturaObligatoria asig = (AsignaturaObligatoria)asignatura;
 				AsignaturaObligatoria asignaturaPoseida = new AsignaturaObligatoria(asig.getCodigo(),asig.getNombre(), asig.getCreditos(), asig.getTipo(), asig.getNivel(), asig.getCantPre());
 				//asignaturaPoseida.setParalelo(asignatura.getParalelo());
+				asignaturaPoseida.setNotaFinal(notaFinal);
 				alumno.getListaAsignaturas().ingresarAsignatura(asignaturaPoseida);
-				alumno.getListaAsignaturas().buscarAsignaturaCode(codigoAsignatura).setNotaFinal(notaFinal);
+				//alumno.getListaAsignaturas().buscarAsignaturaCode(codigoAsignatura).setNotaFinal(notaFinal);
 			}
 			if(asignatura instanceof AsignaturaOpcional) 
 			{
 				AsignaturaOpcional asig2 = (AsignaturaOpcional)asignatura;
 				AsignaturaOpcional asignaturaPoseida2 = new AsignaturaOpcional(asig2.getCodigo(),asig2.getNombre(),asig2.getCreditos(),asig2.getTipo(),asig2.getCreditosPre());
 				//asignaturaPoseida2.ingresarParalelo(asignatura.);
+				asignaturaPoseida2.setNotaFinal(notaFinal);
 				alumno.getListaAsignaturas().ingresarAsignatura(asignaturaPoseida2);
-				alumno.getListaAsignaturas().buscarAsignaturaCode(codigoAsignatura).setNotaFinal(notaFinal);
+				//alumno.getListaAsignaturas().buscarAsignaturaCode(codigoAsignatura).setNotaFinal(notaFinal);
 			}
 			
-			Asignatura asignaturaPoseida = new Asignatura(asignatura.getCodigo(),asignatura.getNombre(),asignatura.getCreditos(),asignatura.getTipo());
-			alumno.getListaAsignaturas().ingresarAsignatura(asignaturaPoseida);
-			alumno.getListaAsignaturas().buscarAsignaturaCode(codigoAsignatura).setNotaFinal(notaFinal);
+			//Asignatura asignaturaPoseida = new Asignatura(asignatura.getCodigo(),asignatura.getNombre(),asignatura.getCreditos(),asignatura.getTipo());
+			//alumno.getListaAsignaturas().ingresarAsignatura(asignaturaPoseida);
+			//alumno.getListaAsignaturas().buscarAsignaturaCode(codigoAsignatura).setNotaFinal(notaFinal);
 			
 		}
 		
@@ -248,14 +250,30 @@ public class SistemaIMPL implements Sistema {
 	}
 
 	@Override
-	public boolean eliminarAsignatura(String código, String asignatura) {
-		// TODO Auto-generated method stub
+	public boolean eliminarAsignatura(String correo, String codigo) {
+		Alumno alumno = generalAlumnos.buscarAlumnoCorreo(correo);
+		Asignatura asignatura = alumno.getListaAsignaturas().buscarAsignaturaCode(codigo);
+		if(alumno!= null && asignatura!=null) 
+		{
+			return alumno.getListaAsignaturas().elimianarAsignatura(codigo);
+			
+		}
 		return false;
 	}
 
 	@Override
-	public void obtenerAsignaturasInscritas(String rutAlumno) {
-		// TODO Auto-generated method stub
+	public String obtenerAsignaturasInscritas(String correo) {
+		String out = "";
+		Alumno a = generalAlumnos.buscarAlumnoCorreo(correo);
+		for (int i = 0; i < a.getListaAsignaturas().getCant(); i++) {
+			Asignatura asignatura = a.getListaAsignaturas().buscarAsignaturaI(i);
+			if(asignatura.getNotaFinal()==0) 
+			{
+				out+= asignatura.getNombre()+" codigo "+asignatura.getCodigo()+"\n";
+			}
+			
+		}
+		return out;
 		
 	}
 

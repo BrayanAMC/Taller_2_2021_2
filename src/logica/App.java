@@ -232,7 +232,37 @@ public class App {
         		}
         		break;
         	case 2:
-        		System.out.println("se eligio elimianar Asignatura");
+        		System.out.println("se eligio eliminar Asignatura");
+        		System.out.println("asignaturas inscritas:");
+        		
+        		String disponibles2 = s.obtenerAsignaturasInscritas(correo);
+        		if(disponibles2.equalsIgnoreCase("")) 
+        		{
+        			System.out.println("usted no tiene asignaturas inscritas");
+        		}else {
+        			System.out.println(disponibles2);
+        		}
+        		System.out.println("ingrese el codigo de la asignatura que desea eliminar: ");
+        		boolean repetir3 = true;
+        		int opcion4 = -1;
+        		while(repetir3) 
+        		{
+        			try {
+        				opcion4 = entrada.nextInt();
+        				repetir3 = false;
+        			}catch(Exception e){
+        				System.out.println("codigo mal ingresado");
+        				entrada.nextLine();
+        			}
+        		}
+        		String auxOpcion4 = Integer.toString(opcion4);
+        		boolean eliminarAsig = s.eliminarAsignatura(correo,auxOpcion4);
+        		if(eliminarAsig) 
+        		{
+        			System.out.println("se a eliminado la asignatura perteneciente al codigo: "+auxOpcion4);
+        		}else {
+        			System.out.println("no se a podido eliminar la asignatura "+auxOpcion4);
+        		}
         		break;
         	}
         	System.out.println("1)Inscripcion Asignatura\n2)Eliminar Asignatura\n3)Salir");
