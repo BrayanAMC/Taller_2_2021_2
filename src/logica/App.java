@@ -198,27 +198,36 @@ public class App {
         		System.out.println("se eligio inscripcion asignatura");
         		String disponibles = s.obtenerAsignaturasDisponibles(correo);
         		System.out.println(disponibles);
+        		if(disponibles.equalsIgnoreCase("no hay asignaturas disponibles para inscribir")) 
+        		{
+        			break;
+        		}
         		System.out.println("ingrese el codigo de la asignatura que desea inscribir: ");
         		boolean repetir2 = true;
         		int opcion2 = -1;
+        		int opcion3 = -1;
         		while(repetir2) 
         		{
         			try {
         				opcion2 = entrada.nextInt();
+        				System.out.println("ingrese el paralelo: ");
+        				opcion3 = entrada.nextInt();
         				repetir2 = false;
         				
         			}catch(Exception e) {
-        				System.out.println("codigo mal ingresado");
+        				System.out.println("codigo o paralelo  mal ingresado");
         				entrada.nextLine();
         			}
         		}
         		String auxOpcion2 = Integer.toString(opcion2);
-        		boolean inscribirAsig = s.inscribirAsignaturas(auxOpcion2,correo);
+        		String auxOpcion3 = Integer.toString(opcion3);
+
+        		boolean inscribirAsig = s.inscribirAsignaturas(auxOpcion2,correo,auxOpcion3);
         		if(inscribirAsig) 
         		{
-        			System.out.println("la asignatura de codigo: "+auxOpcion2+" se inscribio correctamente");
+        			System.out.println("se ha inscrito en el paralelo "+auxOpcion3+" de la asignatura: "+auxOpcion2);
         		}else {
-        			System.out.println("la asignatura de codigo: "+auxOpcion2+" no se pudo inscribir");
+        			System.out.println("no ha podido inscribir el paralelo "+auxOpcion3+" de la asignatura: "+auxOpcion2);
 
         		}
         		break;
