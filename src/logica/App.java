@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import ucn.ArchivoEntrada;
 import ucn.Registro;
+import ucn.StdIn;
 
 
 public class App {
@@ -18,7 +19,110 @@ public class App {
 		leerProfesores(s);
 		leerParalelos(s);
 		leerEstudiantes(s);
+		inicioSesion(s);
 
+	}
+	private static void inicioSesion(Sistema s) {
+		Scanner entrada = new Scanner(System.in);
+		System.out.println("ingrese una opcion\n 1) inicio sesion \n2)cerrar sesion");
+		int opcion = -1;
+		boolean repetir = true;
+		while(repetir)//controla que el dato ingresado sea un int
+		{
+			try 
+			{
+				opcion = entrada.nextInt();
+				repetir = false;
+			}catch(Exception e){
+				System.out.println("dato mal ingresado,intente nuevamente");
+        		System.out.println("ingrese una opcion\n1)iniciar sesion \n2)cerrar");
+        		entrada.nextLine();
+			}
+		}
+		while(opcion!=2) 
+		{
+			switch(opcion) {
+			case 1:
+				//eligio iniciar sesion
+				System.out.println("ingrese su correo");
+				String correo = StdIn.readString();
+				System.out.println("ingrese su contrasena");
+				String contrasena = StdIn.readString();
+				if(correo.equalsIgnoreCase("Admin")&& contrasena.equalsIgnoreCase("GHI_789")) 
+				{
+					//se a logeado un admin
+				}
+				else {
+					try {
+						String registro = s.login(correo, contrasena);
+						if(registro.equalsIgnoreCase("0")) 
+						{
+							System.out.println("contrasena o correo incorrectos");
+						}else {
+							//desplegar menu
+							System.out.println("todo correcto debe ingresar una fecha");
+							System.out.println("ingrese la fecha actual:");
+							int dia = -1;
+							int mes = -1;
+							int anio = -1;
+							boolean repetir2 = true;
+							while(repetir2) {
+								try {
+									System.out.println("ingrese el dia:");
+									dia = entrada.nextInt();
+									System.out.println("ingrese mes:");
+									mes = entrada.nextInt();
+									System.out.println("ingrese año");
+									anio = entrada.nextInt();
+									repetir2 = false;
+									
+								}catch(Exception e){
+									System.out.println("dato mal ingresado,intente nuevamente");
+					        		System.out.println("ingrese una opciones de meses validas");
+					        		//System.out.println("ingrese el dia:");
+					        		entrada.nextLine();
+								}
+							}
+							if(registro.equalsIgnoreCase("1")) 
+							{
+								System.out.println("menu para estudiante");
+							}
+							if(registro.equalsIgnoreCase("2")) 
+							{
+								System.out.println("menu para profesores");
+							}
+						}
+						
+					}catch(Exception e){
+						System.out.println("error al verificar usuario en el catch");
+						
+					}
+				}
+				
+				break;
+			default:
+				System.out.println("dato mal ingresado");
+			
+			}
+			System.out.println("ingrese una opcion\n 1) inicio sesion \n2)cerrar sesion");
+			opcion = -1;
+			repetir = true;
+			while(repetir)//controla que el dato ingresado sea un int
+			{
+				try 
+				{
+					opcion = entrada.nextInt();
+					repetir = false;
+				}catch(Exception e){
+					System.out.println("dato mal ingresado,intente nuevamente");
+	        		System.out.println("ingrese una opcion\n1)iniciar sesion \n2)cerrar");
+	        		entrada.nextLine();
+				}
+			}
+			
+		}
+		
+		
 	}
 	private static void leerEstudiantes(Sistema s) throws IOException{
 		Scanner scan = new Scanner(new File("estudiantes.txt"));

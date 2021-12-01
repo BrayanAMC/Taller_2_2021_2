@@ -9,7 +9,7 @@ public interface Sistema {
 	void asociarEstudianteAsignatura(String rutEstudiante,String codigoAsignatura,double notaFinal);
 	void asociarAsignaturaProfesor(String rutProfesor,String codigoAsignatura,String numParalelo);
 	void escribirEstudiante();
-	void login(String correo,String contrasena);
+	String login(String correo,String contrasena);
 	void inscribirAsignaturas(String codigoAsignatura);
 	void obtenerAsignaturasDisponibles(String rutAlumno);
 	boolean eliminarAsignatura(String código ,String asignatura);

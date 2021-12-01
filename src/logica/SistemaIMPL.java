@@ -120,9 +120,30 @@ public class SistemaIMPL implements Sistema {
 	}
 
 	@Override
-	public void login(String correo, String contrasena) {
-		// TODO Auto-generated method stub
+	public String login(String correo, String contrasena) {
 		
+		for (int i = 0; i < generalAlumnos.getCant(); i++) {
+			if(generalAlumnos.buscarAlumnoI(i).getCorreo().equalsIgnoreCase(correo)) 
+			{
+				if(generalAlumnos.buscarAlumnoI(i).getContrasena().equalsIgnoreCase(contrasena)) 
+				{
+					return "1";
+				}
+				
+			}
+			
+		}
+		for (int j = 0; j < generalProfesores.getCant(); j++) {
+			if(generalProfesores.buscarProfesorI(j).getCorreo().equalsIgnoreCase(correo)) 
+			{
+				if(generalProfesores.buscarProfesorI(j).getContrasena().equalsIgnoreCase(contrasena)) 
+				{
+					return "2";
+				}
+			}
+			
+		}
+		return "0";
 	}
 
 	@Override
