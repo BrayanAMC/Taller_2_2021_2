@@ -198,7 +198,29 @@ public class App {
         		System.out.println("se eligio inscripcion asignatura");
         		String disponibles = s.obtenerAsignaturasDisponibles(correo);
         		System.out.println(disponibles);
-        		//boolean inscribirAsig = s.inscribirAsignaturas()
+        		System.out.println("ingrese el codigo de la asignatura que desea inscribir: ");
+        		boolean repetir2 = true;
+        		int opcion2 = -1;
+        		while(repetir2) 
+        		{
+        			try {
+        				opcion2 = entrada.nextInt();
+        				repetir2 = false;
+        				
+        			}catch(Exception e) {
+        				System.out.println("codigo mal ingresado");
+        				entrada.nextLine();
+        			}
+        		}
+        		String auxOpcion2 = Integer.toString(opcion2);
+        		boolean inscribirAsig = s.inscribirAsignaturas(auxOpcion2,correo);
+        		if(inscribirAsig) 
+        		{
+        			System.out.println("la asignatura de codigo: "+auxOpcion2+" se inscribio correctamente");
+        		}else {
+        			System.out.println("la asignatura de codigo: "+auxOpcion2+" no se pudo inscribir");
+
+        		}
         		break;
         	case 2:
         		System.out.println("se eligio elimianar Asignatura");

@@ -148,9 +148,47 @@ public class SistemaIMPL implements Sistema {
 	}
 
 	@Override
-	public void inscribirAsignaturas(String codigoAsignatura) {
-		// TODO Auto-generated method stub
+	public boolean inscribirAsignaturas(String codigoAsignatura,String correo) {
+		int contador = 0;
+		Asignatura asigSistema = generalAsignaturas.buscarAsignaturaCode(codigoAsignatura);
+		Alumno alumno = generalAlumnos.buscarAlumnoCorreo(correo);
+		String currentCodigo;
+		for (int i = 0; i < alumno.getListaAsignaturas().getCant(); i++) {
+			currentCodigo = alumno.getListaAsignaturas().buscarAsignaturaI(i).getCodigo();
+			if(currentCodigo.equalsIgnoreCase(codigoAsignatura)) 
+			{
+				contador++;
+			}
+			
+		}
+		if(contador == 0) 
+		{
+			//no tiene esa asignatura en su lista por lo tanto se puede inscribir
+			Asignatura a = generalAsignaturas.buscarAsignaturaCode(codigoAsignatura);
+			if(a!=null && alumno!=null) 
+			{
+				if(a instanceof AsignaturaObligatoria) 
+				{
+					AsignaturaObligatoria asig = (AsignaturaObligatoria)a;
+					AsignaturaObligatoria asignaturaInscrita = new AsignaturaObligatoria(asig.getCodigo(),asig.getNombre(), asig.getCreditos(), asig.getTipo(), asig.getNivel(), asig.getCantPre());
+					return alumno.getListaAsignaturas().ingresarAsignatura(asignaturaInscrita);
+					
+				} 
+				if(a instanceof AsignaturaOpcional) 
+				{
+					AsignaturaOpcional asig2 = (AsignaturaOpcional)a;
+					AsignaturaOpcional asignaturaInscrita2 = new AsignaturaOpcional(asig2.getCodigo(),asig2.getNombre(),asig2.getCreditos(),asig2.getTipo(),asig2.getCreditosPre());
+					return alumno.getListaAsignaturas().ingresarAsignatura(asignaturaInscrita2);
+
+				} 
+				
+			}else {
+				return false;
+			}
+			
+		}
 		
+		return false;
 	}
 
 	@Override
@@ -183,8 +221,12 @@ public class SistemaIMPL implements Sistema {
 				}
 				
 			}
-			
-			return out;
+			if(contador != 0) 
+			{
+				return "no hay asignaturas disponibles para inscribir";
+			}else {
+				return out;
+			}	
 		}else {
 			return "";
 		}			
