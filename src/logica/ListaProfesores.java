@@ -66,5 +66,15 @@ public class ListaProfesores {
 		}
 		return null;
 	}
+	public Profesor buscarProfesorCorreo(String correo) 
+	{
+		for (int i = 0; i < cant; i++) {
+			if(lista[i].getCorreo().equalsIgnoreCase(correo))
+			{
+				return lista[i];
+			}
+		}
+		return null;
+	}
 	
 }

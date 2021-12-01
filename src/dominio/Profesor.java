@@ -16,7 +16,7 @@ public class Profesor {
 		this.correo = correo;
 		this.contrasena = contrasena;
 		this.salario = salario;
-		lista = new ListaAsignaturas(10);
+		lista = new ListaAsignaturas(4);
 	}
 	public String getRut() 
 	{

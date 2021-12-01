@@ -84,6 +84,10 @@ public class Asignatura {
 	public void setNotaFinal(double notaFinal) {
 		this.notaFinal = notaFinal;
 	}
+	public String getParaleloUnico() 
+	{
+		return paralelo[0];
+	}
 	
 	
 	

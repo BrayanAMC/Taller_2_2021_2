@@ -14,8 +14,8 @@ public interface Sistema {
 	String obtenerAsignaturasDisponibles(String correo);
 	boolean eliminarAsignatura(String correo ,String codigo);
 	String obtenerAsignaturasInscritas(String correo);
-	void chequeoAlumnos(String codigoAsignatura);
-	void obtenerParalelosInscritosP(String rutProfesor);
+	String chequeoAlumnos(String correo,String codigo,String paralelo);
+	String obtenerParalelosInscritosP(String correo);
 	void ingresoNotaFinal(String codigoAsignatura,String rutAlumno);
 	void CierreSemestre();
 	void escribirEstudiantesEgresados();
