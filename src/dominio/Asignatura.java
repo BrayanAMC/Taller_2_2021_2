@@ -25,6 +25,11 @@ public class Asignatura {
 		notaFinal = 0;
 		contadorParalelo = 0;
 	}
+	public boolean ingresarAlumno(Alumno a) 
+	{
+		return lista.agregarAlumno(a);
+	}
+
 	public String getCodigo() 
 	{
 		return codigo;
@@ -83,6 +88,10 @@ public class Asignatura {
 	}
 	public void setNotaFinal(double notaFinal) {
 		this.notaFinal = notaFinal;
+	}
+	public String getParaleloUnico() 
+	{
+		return paralelo[0];
 	}
 	
 	

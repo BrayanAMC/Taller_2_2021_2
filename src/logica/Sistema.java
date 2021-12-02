@@ -12,10 +12,10 @@ public interface Sistema {
 	String login(String correo,String contrasena);
 	boolean inscribirAsignaturas(String codigoAsignatura,String correo,String paralelo);
 	String obtenerAsignaturasDisponibles(String correo);
-	boolean eliminarAsignatura(String código ,String asignatura);
-	void obtenerAsignaturasInscritas(String rutAlumno);
-	void chequeoAlumnos(String codigoAsignatura);
-	void obtenerParalelosInscritosP(String rutProfesor);
+	boolean eliminarAsignatura(String correo ,String codigo);
+	String obtenerAsignaturasInscritas(String correo);
+	String chequeoAlumnos(String correo,String codigo,String paralelo);
+	String obtenerParalelosInscritosP(String correo);
 	void ingresoNotaFinal(String codigoAsignatura,String rutAlumno);
 	void CierreSemestre();
 	void escribirEstudiantesEgresados();

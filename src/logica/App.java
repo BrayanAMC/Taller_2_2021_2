@@ -162,15 +162,174 @@ public class App {
 		
 	}
 	private static void menuProfesorFinalSemestre(String correo, Sistema s) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	private static void menuProfesorInicioSemestre(String correo, Sistema s) {
-		// TODO Auto-generated method stub
+		Scanner entrada = new Scanner(System.in);
+		boolean repetir = true;
+		int opcion = -1;
+        System.out.println("1)Chequeo Alumnos\n2)Salir");
+        while(repetir) 
+        {
+        	try {
+        		opcion = entrada.nextInt();
+        		repetir = false;
+        	}catch(Exception e) 
+        	{
+        		System.out.println("opcion no valida");
+                System.out.println("1)Chequeo Alumnos\n2)Salir");
+                entrada.nextLine();
+        	}
+        }
+        while(opcion!=2) 
+        {
+        	switch(opcion) {
+        	case 1:
+	        	System.out.println("se eligio chequeo alumnos");
+	        	String paralelosIns = s.obtenerParalelosInscritosP(correo);
+	        	if(paralelosIns.equalsIgnoreCase("")) 
+	        	{
+	        		System.out.println("no hay paralelos para mostrar");
+	        		break;
+	        	}
+	        	else {
+	        		System.out.println("sus paralelos son:");
+	        		System.out.println(paralelosIns);
+	        		
+	        	}
+	        	//seguir aqui<----
+	        	System.out.println("ingrese el codigo de la asignatura a revisar: ");
+        		boolean repetir2 = true;
+        		int opcion2 = -1;
+        		int opcion3 = -1;
+        		while(repetir2) 
+        		{
+        			try {
+        				opcion2 = entrada.nextInt();
+        				System.out.println("ingrese el paralelo: ");
+        				opcion3 = entrada.nextInt();
+        				repetir2 = false;
+        				
+        			}catch(Exception e) {
+        				System.out.println("codigo o paralelo  mal ingresado");
+        				entrada.nextLine();
+        			}
+        		}
+        		String auxOpcion2 = Integer.toString(opcion2);
+        		String auxOpcion3 = Integer.toString(opcion3);
+        		String revision = s.chequeoAlumnos(correo,auxOpcion2,auxOpcion3);
+        		System.out.println("-----correo es ");
+        		System.out.println(correo);
+        		System.out.println("-----revidion es ");
+        		System.out.println(revision);
+        		if(revision.equalsIgnoreCase("")) 
+        		{
+        			System.out.println("en el paralelo: "+auxOpcion3+" de codigo: "+auxOpcion2+" no hay estudiantes inscritos");
+        		}else {
+        			System.out.println("los estudiantes inscriyos en la asignatura de codigo: "+auxOpcion2+" en el paralelo: "+auxOpcion3+" son:");
+        			System.out.println(revision);
+        		}
+        		
+        		
+	        	break;
+	        default:
+	        	System.out.println("mal ingreso de datos");
+        	}
+	    	System.out.println("1)Chequeo Alumnos\n2)Salir");
+	    	repetir =true;
+	        while(repetir) 
+	        {
+	        	try {
+	          		opcion = entrada.nextInt();
+	          		repetir = false;
+	          	}catch(Exception e) 
+	          	{
+	          		System.out.println("opcion no valida");
+	                  System.out.println("1)Chequeo Alumnos\n2)Salir");
+	                  entrada.nextLine();
+	          	}
+	        }
+        }
+
+		
 		
 	}
 	private static void menuEstudianteMitadSemestre(String correo, Sistema s) {
-		// TODO Auto-generated method stub
+		Scanner entrada = new Scanner(System.in);
+		boolean repetir = true;
+		int opcion = -1;
+        System.out.println("1)eliminarAsignatura\n2)Salir");
+        while(repetir) {
+        	try {
+        		opcion = entrada.nextInt();
+        		repetir = false;	
+        		
+        	}catch(Exception e) {
+    			System.out.println("dato mal ingresado");
+    			System.out.println("1)eliminarAsignatura\n2)Salir");
+    			entrada.nextLine();
+    		}
+        }
+        while(opcion!=2 && opcion >0 && opcion<2) {
+        	
+        	switch(opcion) {
+        	case 1:
+        		System.out.println("estamos en case 1 de menu estudiante mitad semestre");
+           		System.out.println("se eligio eliminar Asignatura");        		
+        		String disponibles2 = s.obtenerAsignaturasInscritas(correo);
+        		if(disponibles2.equalsIgnoreCase("")) 
+        		{
+        			System.out.println("usted no tiene asignaturas inscritas");
+        			break;
+        		}else {
+        			System.out.println("asignaturas inscritas:");
+        			System.out.println(disponibles2);
+        		}
+        		System.out.println("ingrese el codigo de la asignatura que desea eliminar: ");
+        		boolean repetir3 = true;
+        		int opcion4 = -1;
+        		while(repetir3) 
+        		{
+        			try {
+        				opcion4 = entrada.nextInt();
+        				repetir3 = false;
+        			}catch(Exception e){
+        				System.out.println("codigo mal ingresado");
+        				entrada.nextLine();
+        			}
+        		}
+        		String auxOpcion4 = Integer.toString(opcion4);
+        		boolean eliminarAsig = s.eliminarAsignatura(correo,auxOpcion4);
+        		if(eliminarAsig) 
+        		{
+        			System.out.println("se ha eliminado la asignatura perteneciente al codigo: "+auxOpcion4);
+        		}else {
+        			System.out.println("no se ha podido eliminar la asignatura "+auxOpcion4);
+        		}
+        	
+        		break;
+        	
+        	
+        	
+        	}
+        	
+        	System.out.println("1)eliminarAsignatura\n2)Salir");
+        	repetir = true;
+            while(repetir) {
+            	
+            	try {
+            		opcion = entrada.nextInt();
+            		repetir = false;	
+          		
+            	}catch(Exception e) {
+      			System.out.println("dato mal ingresado");
+      			System.out.println("1)eliminarAsignatura\n2)Salir");
+      			entrada.nextLine();
+            	}
+            }
+        }
+        
 		
 	}
 	private static void menuEstudianteInicioSemestre(String correo, Sistema s) {
@@ -232,7 +391,37 @@ public class App {
         		}
         		break;
         	case 2:
-        		System.out.println("se eligio elimianar Asignatura");
+        		System.out.println("se eligio eliminar Asignatura");        		
+        		String disponibles2 = s.obtenerAsignaturasInscritas(correo);
+        		if(disponibles2.equalsIgnoreCase("")) 
+        		{
+        			System.out.println("usted no tiene asignaturas inscritas");
+        			break;
+        		}else {
+        			System.out.println("asignaturas inscritas:");
+        			System.out.println(disponibles2);
+        		}
+        		System.out.println("ingrese el codigo de la asignatura que desea eliminar: ");
+        		boolean repetir3 = true;
+        		int opcion4 = -1;
+        		while(repetir3) 
+        		{
+        			try {
+        				opcion4 = entrada.nextInt();
+        				repetir3 = false;
+        			}catch(Exception e){
+        				System.out.println("codigo mal ingresado");
+        				entrada.nextLine();
+        			}
+        		}
+        		String auxOpcion4 = Integer.toString(opcion4);
+        		boolean eliminarAsig = s.eliminarAsignatura(correo,auxOpcion4);
+        		if(eliminarAsig) 
+        		{
+        			System.out.println("se a eliminado la asignatura perteneciente al codigo: "+auxOpcion4);
+        		}else {
+        			System.out.println("no se a podido eliminar la asignatura "+auxOpcion4);
+        		}
         		break;
         	}
         	System.out.println("1)Inscripcion Asignatura\n2)Eliminar Asignatura\n3)Salir");
