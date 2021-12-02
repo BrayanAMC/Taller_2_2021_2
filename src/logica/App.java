@@ -256,7 +256,80 @@ public class App {
 		
 	}
 	private static void menuEstudianteMitadSemestre(String correo, Sistema s) {
-		// TODO Auto-generated method stub
+		Scanner entrada = new Scanner(System.in);
+		boolean repetir = true;
+		int opcion = -1;
+        System.out.println("1)eliminarAsignatura\n2)Salir");
+        while(repetir) {
+        	try {
+        		opcion = entrada.nextInt();
+        		repetir = false;	
+        		
+        	}catch(Exception e) {
+    			System.out.println("dato mal ingresado");
+    			System.out.println("1)eliminarAsignatura\n2)Salir");
+    			entrada.nextLine();
+    		}
+        }
+        while(opcion!=2 && opcion >0 && opcion<2) {
+        	
+        	switch(opcion) {
+        	case 1:
+        		System.out.println("estamos en case 1 de menu estudiante mitad semestre");
+           		System.out.println("se eligio eliminar Asignatura");        		
+        		String disponibles2 = s.obtenerAsignaturasInscritas(correo);
+        		if(disponibles2.equalsIgnoreCase("")) 
+        		{
+        			System.out.println("usted no tiene asignaturas inscritas");
+        			break;
+        		}else {
+        			System.out.println("asignaturas inscritas:");
+        			System.out.println(disponibles2);
+        		}
+        		System.out.println("ingrese el codigo de la asignatura que desea eliminar: ");
+        		boolean repetir3 = true;
+        		int opcion4 = -1;
+        		while(repetir3) 
+        		{
+        			try {
+        				opcion4 = entrada.nextInt();
+        				repetir3 = false;
+        			}catch(Exception e){
+        				System.out.println("codigo mal ingresado");
+        				entrada.nextLine();
+        			}
+        		}
+        		String auxOpcion4 = Integer.toString(opcion4);
+        		boolean eliminarAsig = s.eliminarAsignatura(correo,auxOpcion4);
+        		if(eliminarAsig) 
+        		{
+        			System.out.println("se ha eliminado la asignatura perteneciente al codigo: "+auxOpcion4);
+        		}else {
+        			System.out.println("no se ha podido eliminar la asignatura "+auxOpcion4);
+        		}
+        	
+        		break;
+        	
+        	
+        	
+        	}
+        	
+        	System.out.println("1)eliminarAsignatura\n2)Salir");
+        	repetir = true;
+            while(repetir) {
+            	
+            	try {
+            		opcion = entrada.nextInt();
+            		repetir = false;	
+          		
+            	}catch(Exception e) {
+      			System.out.println("dato mal ingresado");
+      			System.out.println("1)eliminarAsignatura\n2)Salir");
+      			entrada.nextLine();
+            	}
+            }
+        }
+        
 		
 	}
 	private static void menuEstudianteInicioSemestre(String correo, Sistema s) {

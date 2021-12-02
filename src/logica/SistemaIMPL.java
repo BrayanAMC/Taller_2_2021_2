@@ -327,37 +327,14 @@ public class SistemaIMPL implements Sistema {
 		Profesor p = generalProfesores.buscarProfesorCorreo(correo);
 		Asignatura a = p.getListaAsignaturas().buscarAsignaturaCode(codigo);
 		//Asignatura a = generalAsignaturas.buscarAsignaturaCode(codigo);
-		System.out.println("---check objetos");
-
-		System.out.println(p);
-		System.out.println(a);
-
 		//if(p!=null && a!=null) {
-		
 		Asignatura asig = p.getListaAsignaturas().buscarAsignaturaCode(codigo);
-		
-		System.out.println("antes del for");
-		System.out.println("check cantidad:");
-		System.out.println(a.getListaAlumnos().getCant());
 		for(int j = 0; j < a.getListaAlumnos().getCant(); j++){
-			System.out.println("despues del for");
-
 			Alumno alumno = a.getListaAlumnos().buscarAlumnoI(j);
-			System.out.println(alumno);
-			System.out.println(alumno.getRut());
-			System.out.println(alumno.getCorreo());
-
-
 			out+= "rut alumno: "+alumno.getRut()+" correo alumno: "+alumno.getCorreo()+"\n";
-			
 		}
-			
-			
-		
-		//}
 		return out;
 	}
-
 	@Override
 	public String obtenerParalelosInscritosP(String correo) {
 		Profesor p = generalProfesores.buscarProfesorCorreo(correo);
@@ -365,14 +342,11 @@ public class SistemaIMPL implements Sistema {
 		for (int i = 0; i < p.getListaAsignaturas().getCant(); i++) {
 			Asignatura a = p.getListaAsignaturas().buscarAsignaturaI(i);
 			out+= "codigo: "+a.getCodigo()+" paralelo: "+a.getParalelos()+"\n";
-			
 		}
 		return out;
 	}
-
 	@Override
 	public void ingresoNotaFinal(String codigoAsignatura, String rutAlumno) {
-		// TODO Auto-generated method stub
 		
 	}
 
