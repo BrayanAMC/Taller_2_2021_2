@@ -16,9 +16,10 @@ public interface Sistema {
 	String obtenerAsignaturasInscritas(String correo);
 	String chequeoAlumnos(String correo,String codigo,String paralelo);
 	String obtenerParalelosInscritosP(String correo);
-	void ingresoNotaFinal(String codigoAsignatura,String rutAlumno);
+	boolean ingresoNotaFinal(String correo,String codigo,String paralelo,String rutAlumno,double notaFinal);
 	void CierreSemestre();
 	void escribirEstudiantesEgresados();
 	void asociarAsignaturaAsignaturaPre(String codigoAsignatura,String codigoAsignaturaPre);
 	void asociarEstudianteAsignaturaInscrita(String rutEstudiante,String codigoAsignatura,String paralelo);
+	String obtenerEstudiantesInscritos(String correo,String codigo,String paralelo);
 }

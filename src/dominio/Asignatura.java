@@ -86,8 +86,9 @@ public class Asignatura {
 	public double getNotaFinal() {
 		return notaFinal;
 	}
-	public void setNotaFinal(double notaFinal) {
+	public boolean setNotaFinal(double notaFinal) {
 		this.notaFinal = notaFinal;
+		return true;
 	}
 	public String getParaleloUnico() 
 	{

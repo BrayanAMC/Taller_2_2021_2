@@ -162,8 +162,117 @@ public class App {
 		
 	}
 	private static void menuProfesorFinalSemestre(String correo, Sistema s) {
-		
-		
+		Scanner entrada = new Scanner(System.in);
+		boolean repetir = true;
+		int opcion = -1;
+        System.out.println("1)ingresar Nota Final\n2)Salir");
+		while(repetir) 
+		{
+			try {
+				opcion = entrada.nextInt();
+				repetir = false;
+			}catch(Exception e) {
+				System.out.println("dato mal ingresado");
+		        System.out.println("1)ingresar Nota Final\n2)Salir");
+		        entrada.nextLine();
+			}
+		}
+		while(opcion==1) 
+		{
+			switch(opcion) {
+			case 1:
+				System.out.println("ha elegido ingresar nota final");
+				String paralelosIns = s.obtenerParalelosInscritosP(correo);
+	        	if(paralelosIns.equalsIgnoreCase("")) 
+	        	{
+	        		System.out.println("no hay paralelos para mostrar");
+	        		break;
+	        	}
+	        	else {
+	        		System.out.println("sus paralelos son:");
+	        		System.out.println(paralelosIns);
+	        		
+	        	}
+				
+	        	System.out.println("ingrese el codigo de la asignatura a ingresar nota final: ");
+        		boolean repetir2 = true;
+        		int opcion2 = -1;
+        		int opcion3 = -1;
+        		while(repetir2) 
+        		{
+        			try {
+        				opcion2 = entrada.nextInt();
+        				System.out.println("ingrese el paralelo: ");
+        				opcion3 = entrada.nextInt();
+        				repetir2 = false;
+        				
+        			}catch(Exception e) {
+        				System.out.println("codigo o paralelo  mal ingresado");
+        				entrada.nextLine();
+        			}
+        		}
+				//<------------
+        		String auxOpcion2 = Integer.toString(opcion2);
+        		String auxOpcion3 = Integer.toString(opcion3);
+        		String notaFinal = s.obtenerEstudiantesInscritos(correo, auxOpcion2, auxOpcion3);
+        		if(notaFinal.equalsIgnoreCase("")) 
+        		{
+        			System.out.println("la asignatura de codigo: "+auxOpcion2+" y paralelo: "+auxOpcion3+" no tiene estudiantes inscritos");
+        			break;
+        		}else {
+        			System.out.println("seleccione rut del alumno a ingresar nota final:");
+        			System.out.println(notaFinal);
+        		}
+        		
+        		//s.ingresoNotaFinal(correo, auxOpcion2, auxOpcion3); 
+				boolean repetir3 = true;
+				int opcion4 = -1;
+				double opcion5 = -1;
+				while(repetir3) 
+				{
+					try {
+						opcion4 = entrada.nextInt();
+						System.out.println("ingrese nota Final:");
+						opcion5 = entrada.nextDouble();
+				
+						repetir3 = false;
+					}catch(Exception e) {
+						System.out.println("rut o nota final no validos");
+						System.out.println("seleccione rut del alumno a ingresar nota final:");
+	        			System.out.println(notaFinal);
+						entrada.nextLine();
+					}
+				}
+				String auxOpcion4 = Integer.toString(opcion4);
+				
+				boolean ingresoNotaFinal = s.ingresoNotaFinal(correo, auxOpcion2, auxOpcion3, auxOpcion4,opcion5);
+				
+				if(ingresoNotaFinal) 
+				{
+					System.out.println("la nota: "+opcion5+" se le ingreso al alumno: "+opcion4+" exitosamente");
+				}else {
+					System.out.println("nota fuera de rango o imposible de ingresar");
+				}
+				break;
+			}
+			repetir = true;
+			System.out.println("1)ingresar Nota Final\n2)Salir");
+			while(repetir) 
+			{
+				try {
+					opcion = entrada.nextInt();
+					repetir = false;
+				}catch(Exception e) {
+					System.out.println("dato mal ingresado");
+			        System.out.println("1)ingresar Nota Final\n2)Salir");
+			        entrada.nextLine();
+				}
+			}
+		}
+		if(opcion!=1 && opcion!=2) 
+		{
+			System.out.println("numero ingresado no pertenece al rango");
+		}
 	}
 	private static void menuProfesorInicioSemestre(String correo, Sistema s) {
 		Scanner entrada = new Scanner(System.in);

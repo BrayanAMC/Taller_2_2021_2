@@ -346,7 +346,18 @@ public class SistemaIMPL implements Sistema {
 		return out;
 	}
 	@Override
-	public void ingresoNotaFinal(String codigoAsignatura, String rutAlumno) {
+	public boolean ingresoNotaFinal(String correo, String codigo,String paralelo,String rutAlumno,double notaFinal) {
+		Profesor p = generalProfesores.buscarProfesorCorreo(correo);
+		Asignatura asigS = generalAsignaturas.buscarAsignaturaCode(codigo);
+		if(p!=null && asigS!=null) 
+		{
+			if(notaFinal >7 || notaFinal<0) 
+			{
+				return false;
+			}
+			return asigS.getListaAlumnos().buscarAlumnoRut(rutAlumno).getListaAsignaturas().buscarAsignaturaCode(codigo).setNotaFinal(notaFinal);
+		}
+		return false;
 		
 	}
 
@@ -415,6 +426,24 @@ public class SistemaIMPL implements Sistema {
 			
 		}
 		
+	}
+
+	@Override
+	public String obtenerEstudiantesInscritos(String correo, String codigo, String paralelo) {
+		String out = "";
+		Profesor p = generalProfesores.buscarProfesorCorreo(correo);
+		//Asignatura asigP = p.getListaAsignaturas().buscarAsignaturaCode(codigo);
+		Asignatura asigS = generalAsignaturas.buscarAsignaturaCode(codigo);
+
+		if(p!=null && asigS != null) 
+		{
+			for(int i=0;i<asigS.getListaAlumnos().getCant();i++) {
+				Alumno alumS = asigS.getListaAlumnos().buscarAlumnoI(i);
+				out+= "rut: "+alumS.getRut()+" correo: "+alumS.getCorreo()+"\n";
+			}
+		}
+		
+		return out;
 	}
 
 }
