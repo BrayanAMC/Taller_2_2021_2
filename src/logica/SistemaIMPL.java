@@ -325,8 +325,8 @@ public class SistemaIMPL implements Sistema {
 	public String chequeoAlumnos(String correo,String codigo,String paralelo) {
 		String out = "";
 		Profesor p = generalProfesores.buscarProfesorCorreo(correo);
-		Asignatura a = p.getListaAsignaturas().buscarAsignaturaCode(codigo);
-		//Asignatura a = generalAsignaturas.buscarAsignaturaCode(codigo);
+		//Asignatura a = p.getListaAsignaturas().buscarAsignaturaCode(codigo);
+		Asignatura a = generalAsignaturas.buscarAsignaturaCode(codigo);
 		//if(p!=null && a!=null) {
 		Asignatura asig = p.getListaAsignaturas().buscarAsignaturaCode(codigo);
 		for(int j = 0; j < a.getListaAlumnos().getCant(); j++){
