@@ -63,6 +63,7 @@ public class SistemaIMPL implements Sistema {
 			asignatura.getListaAlumnos().agregarAlumno(alumno);
 			if(asignatura instanceof AsignaturaObligatoria) 
 			{
+				
 				AsignaturaObligatoria asig = (AsignaturaObligatoria)asignatura;
 				AsignaturaObligatoria asignaturaPoseida = new AsignaturaObligatoria(asig.getCodigo(),asig.getNombre(), asig.getCreditos(), asig.getTipo(), asig.getNivel(), asig.getCantPre());
 				//asignaturaPoseida.setParalelo(asignatura.getParalelo());
@@ -70,6 +71,8 @@ public class SistemaIMPL implements Sistema {
 				asignaturaPoseida.ingresarAlumno(alumno);
 				alumno.getListaAsignaturas().ingresarAsignatura(asignaturaPoseida);
 				//alumno.getListaAsignaturas().buscarAsignaturaCode(codigoAsignatura).setNotaFinal(notaFinal);
+				asig.setNotaFinal(notaFinal);
+				asig.ingresarAlumno(alumno);
 			}
 			if(asignatura instanceof AsignaturaOpcional) 
 			{
@@ -80,6 +83,8 @@ public class SistemaIMPL implements Sistema {
 				asignaturaPoseida2.ingresarAlumno(alumno);
 				alumno.getListaAsignaturas().ingresarAsignatura(asignaturaPoseida2);
 				//alumno.getListaAsignaturas().buscarAsignaturaCode(codigoAsignatura).setNotaFinal(notaFinal);
+				asig2.setNotaFinal(notaFinal);
+				asig2.ingresarAlumno(alumno);
 			}
 			
 			//Asignatura asignaturaPoseida = new Asignatura(asignatura.getCodigo(),asignatura.getNombre(),asignatura.getCreditos(),asignatura.getTipo());
@@ -103,18 +108,22 @@ public class SistemaIMPL implements Sistema {
 			a.ingresarParalelo(numParalelo);
 			
 			//p.getListaAsignaturas().ingresarAsignatura(asignatura);
-			
 			if(a instanceof AsignaturaObligatoria) 
 			{
 				AsignaturaObligatoria asig = (AsignaturaObligatoria)a;
 				AsignaturaObligatoria asignaturaInscrita = new AsignaturaObligatoria(asig.getCodigo(),asig.getNombre(), asig.getCreditos(), asig.getTipo(), asig.getNivel(), asig.getCantPre());
 				asignaturaInscrita.setProfesor(p);
 				asignaturaInscrita.ingresarParalelo(numParalelo);
-				for(int i = 0;i<a.getListaAlumnos().getCant();i++) 
+				for(int i = 0;i<p.getListaAsignaturas().getCant();i++) 
 				{
-					asignaturaInscrita.ingresarAlumno(a.getListaAlumnos().buscarAlumnoI(i));
+					//asignaturaInscrita.ingresarAlumno(a.getListaAlumnos().buscarAlumnoI(i));
+					asignaturaInscrita.ingresarAlumno(generalAsignaturas.buscarAsignaturaCode(codigoAsignatura).getListaAlumnos().buscarAlumnoI(i));
 				}
 				p.getListaAsignaturas().ingresarAsignatura(asignaturaInscrita);
+				
+				asig.setProfesor(p);
+				asig.ingresarParalelo(numParalelo);
+				
 				
 			}
 			if(a instanceof AsignaturaOpcional) 
@@ -125,9 +134,14 @@ public class SistemaIMPL implements Sistema {
 				asignaturaInscrita2.ingresarParalelo(numParalelo);
 				for(int i = 0;i<a.getListaAlumnos().getCant();i++) 
 				{
-					asignaturaInscrita2.ingresarAlumno(a.getListaAlumnos().buscarAlumnoI(i));
+					//asignaturaInscrita2.ingresarAlumno(a.getListaAlumnos().buscarAlumnoI(i));
+					asignaturaInscrita2.ingresarAlumno(generalAsignaturas.buscarAsignaturaCode(codigoAsignatura).getListaAlumnos().buscarAlumnoI(i));
+
 				}
 				p.getListaAsignaturas().ingresarAsignatura(asignaturaInscrita2);
+				
+				asig2.setProfesor(p);
+				asig2.ingresarParalelo(numParalelo);
 				
 			}
 			
@@ -198,8 +212,11 @@ public class SistemaIMPL implements Sistema {
 					AsignaturaObligatoria asignaturaInscrita = new AsignaturaObligatoria(asig.getCodigo(),asig.getNombre(), asig.getCreditos(), asig.getTipo(), asig.getNivel(), asig.getCantPre());
 					asignaturaInscrita.ingresarParalelo(paralelo);
 					asignaturaInscrita.ingresarAlumno(alumno);
-					a.ingresarParalelo(paralelo);
-					a.ingresarAlumno(alumno);
+					//a.ingresarParalelo(paralelo);
+					//a.ingresarAlumno(alumno);
+					
+					asig.ingresarParalelo(paralelo);
+					asig.ingresarAlumno(alumno);
 					return alumno.getListaAsignaturas().ingresarAsignatura(asignaturaInscrita);
 					
 				} 
@@ -209,8 +226,14 @@ public class SistemaIMPL implements Sistema {
 					AsignaturaOpcional asignaturaInscrita2 = new AsignaturaOpcional(asig2.getCodigo(),asig2.getNombre(),asig2.getCreditos(),asig2.getTipo(),asig2.getCreditosPre());
 					asignaturaInscrita2.ingresarParalelo(paralelo);
 					asignaturaInscrita2.ingresarAlumno(alumno);
-					a.ingresarParalelo(paralelo);
-					a.ingresarAlumno(alumno);
+					//a.ingresarParalelo(paralelo);
+					//a.ingresarAlumno(alumno);
+					
+					asig2.ingresarParalelo(paralelo);
+					asig2.ingresarAlumno(alumno);
+					
+					
+					
 					return alumno.getListaAsignaturas().ingresarAsignatura(asignaturaInscrita2);
 
 				} 
@@ -399,6 +422,9 @@ public class SistemaIMPL implements Sistema {
 				asignaturaInscrita.ingresarAlumno(alumno);
 				a.ingresarAlumno(alumno);
 				alumno.getListaAsignaturas().ingresarAsignatura(asignaturaInscrita);
+				
+				asig.ingresarParalelo(paralelo);
+				asig.ingresarAlumno(alumno);
 			}
 			if(a instanceof AsignaturaOpcional) 
 			{
@@ -408,6 +434,9 @@ public class SistemaIMPL implements Sistema {
 				asignaturaInscrita2.ingresarAlumno(alumno);
 				a.ingresarAlumno(alumno);
 				alumno.getListaAsignaturas().ingresarAsignatura(asignaturaInscrita2);
+				
+				asig2.ingresarParalelo(paralelo);
+				asig2.ingresarAlumno(alumno);
 			}
 			
 		}
