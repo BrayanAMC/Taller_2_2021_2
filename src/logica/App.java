@@ -82,7 +82,6 @@ public class App {
 								}catch(Exception e){
 									System.out.println("dato mal ingresado,intente nuevamente");
 					        		System.out.println("ingrese una opciones de meses validas");
-					        		//System.out.println("ingrese el dia:");
 					        		entrada.nextLine();
 								}
 							}
@@ -269,7 +268,6 @@ public class App {
         			System.out.println(notaFinal);
         		}
         		
-        		//s.ingresoNotaFinal(correo, auxOpcion2, auxOpcion3); 
 				boolean repetir3 = true;
 				int opcion4 = -1;
 				double opcion5 = -1;
@@ -352,7 +350,6 @@ public class App {
 	        		System.out.println(paralelosIns);
 	        		
 	        	}
-	        	//seguir aqui<----
 	        	System.out.println("ingrese el codigo de la asignatura a revisar: ");
         		boolean repetir2 = true;
         		int opcion2 = -1;
@@ -405,9 +402,6 @@ public class App {
 	          	}
 	        }
         }
-
-		
-		
 	}
 	private static void menuEstudianteMitadSemestre(String correo, Sistema s) {
 		Scanner entrada = new Scanner(System.in);
@@ -463,9 +457,6 @@ public class App {
         		}
         	
         		break;
-        	
-        	
-        	
         	}
         	
         	System.out.println("1)eliminarAsignatura\n2)Salir");
@@ -483,8 +474,6 @@ public class App {
             	}
             }
         }
-        
-		
 	}
 	private static void menuEstudianteInicioSemestre(String correo, Sistema s) {
 		Scanner entrada = new Scanner(System.in);
@@ -604,7 +593,6 @@ public class App {
 		}
 		if(mes<=2 || mes >=8) 
 		{
-			//no hay acciones disponibles
 			System.out.println("feliz vacaciones");
 			return -1;
 		}
@@ -731,49 +719,6 @@ public class App {
 			
 		}
 	}
-	/**
-	private static void leerEstudiantes(Sistema s) throws IOException{
-		ArchivoEntrada arch = new ArchivoEntrada("estudiantes.txt");
-		boolean ingreso= true;
-		while(!arch.isEndFile()&&ingreso) {
-			Registro reg = arch.getRegistro();
-			String rut = reg.getString().toLowerCase().replace("-","").replace(".", "");
-			String correo = reg.getString();
-			int nivel = reg.getInt();
-			String contrasena = reg.getString();
-			boolean ingreso2 = s.ingresarEstudiante(rut, correo, nivel, contrasena);
-			if(ingreso2) 
-			{
-				System.out.println("el estudiante :"+rut+" se ingreso con exito");
-			}else {
-				System.out.println("el estudiante :"+rut+" no se pudo ingresar");
-			}
-			
-			//arch.isEndFile();
-			System.out.println("filtro0");
-			
-			String asignaturasCursadas = reg.getString();
-			System.out.println(asignaturasCursadas);//null
-			System.out.println("filtro1");
-			int contador = Integer.parseInt(asignaturasCursadas);
-			System.out.println("filtro2");
-			for (int i = 0; i < contador; i++) {
-				System.out.println("filtro3");
-				String codigoAsignatura = reg.getString();
-				System.out.println("filtro4");
-				double notaFinal = reg.getDouble();
-				System.out.println("filtro5");
-				try {
-					System.out.println("antes de asociar estudiantes");
-					s.asociarEstudianteAsignatura(rut, codigoAsignatura,notaFinal);
-				}
-				catch(Exception e) {
-					System.out.println("no se pudo asociaral alumno con la asignatura cursada");
-				}
-			}
-			
-		}
-	}**/
 
 	private static void leerParalelos(Sistema s)throws IOException {
 		ArchivoEntrada arch = new ArchivoEntrada("paralelos.txt");
@@ -811,8 +756,6 @@ public class App {
 			}else {
 				System.out.println("el profesor con el rut: "+rut+" NO se pudo ingresar");
 			}
-			
-			
 			
 		}
 	}
@@ -860,9 +803,6 @@ public class App {
 					System.out.println("la asignatura: "+nomAsig+" no se añadio correctamente");
 				}
 			}
-			
-			
-			
 		}
 	}
 
