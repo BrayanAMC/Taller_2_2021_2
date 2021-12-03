@@ -52,6 +52,7 @@ public class App {
 				{
 					//se a logeado un admin
 					System.out.println("usted a entrado como admin");
+					menuAdmin();
 				}
 				else {
 					try {
@@ -159,6 +160,50 @@ public class App {
 			
 		}
 		
+		
+	}
+	private static void menuAdmin() {
+		System.out.println("estamos en el menu admin");
+		Scanner entrada = new Scanner(System.in);
+		boolean repetir = true;
+		int opcion = -1;
+        System.out.println("1)Consolidar Semestre\n2)Salir");
+		while(repetir) 
+		{
+			try {
+				opcion = entrada.nextInt();
+				repetir = false;
+			}catch(Exception e) {
+				System.out.println("dato mal ingresado");
+		        System.out.println("1)Consolidar Semestre\\n2)Salir");
+		        entrada.nextLine();
+			}
+		}
+		while(opcion ==1) 
+		{
+			switch(opcion) {
+			case 1:
+				System.out.println("estamos en el caso 1 de admin");
+				
+				
+				break;
+			
+			}
+			System.out.println("1)Consolidar Semestre\n2)Salir");
+			repetir = true;
+			while(repetir) 
+			{
+				try {
+					opcion = entrada.nextInt();
+					repetir = false;
+				}catch(Exception e) {
+					System.out.println("dato mal ingresado");
+			        System.out.println("1)Consolidar Semestre\\n2)Salir");
+			        entrada.nextLine();
+				}
+			}
+			
+		}
 		
 	}
 	private static void menuProfesorFinalSemestre(String correo, Sistema s) {
